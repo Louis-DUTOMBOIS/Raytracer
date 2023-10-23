@@ -9,6 +9,23 @@ public class Triplet {
 		this.y = y;
 		this.z = z;
 	}
+	
+	
+	public double getX() {
+		return x;
+	}
+
+
+	public double getY() {
+		return y;
+	}
+
+
+	public double getZ() {
+		return z;
+	}
+
+
 	public Triplet add(Triplet t) {
 		return new Triplet(t.x+x, t.y+y, t.z+z);
 	}
@@ -30,7 +47,7 @@ public class Triplet {
 		
 	}
 	
-	public Triplet SchurProduct(Triplet t) {
+	public Triplet schurProduct(Triplet t) {
 		return new Triplet(x*t.x, y*t.y, z*t.z);		
 	}
 	
