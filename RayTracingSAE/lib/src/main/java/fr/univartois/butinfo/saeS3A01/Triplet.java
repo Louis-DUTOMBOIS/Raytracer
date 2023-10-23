@@ -9,24 +9,6 @@ public class Triplet {
 		this.y = y;
 		this.z = z;
 	}
-	public double getX() {
-		return x;
-	}
-	public void setX(double x) {
-		this.x = x;
-	}
-	public double getY() {
-		return y;
-	}
-	public void setY(double y) {
-		this.y = y;
-	}
-	public double getZ() {
-		return z;
-	}
-	public void setZ(double z) {
-		this.z = z;
-	}
 	public Triplet add(Triplet t) {
 		return new Triplet(t.x+x, t.y+y, t.z+z);
 	}
