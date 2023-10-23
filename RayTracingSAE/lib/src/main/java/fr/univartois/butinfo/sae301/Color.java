@@ -1,7 +1,8 @@
 package fr.univartois.butinfo.sae301;
 
 public class Color {
-	Triplet trip;
+	
+	private Triplet trip;
     public Color(double x, double y, double z) {
         this.trip = new Triplet(x,y,z);
     }
