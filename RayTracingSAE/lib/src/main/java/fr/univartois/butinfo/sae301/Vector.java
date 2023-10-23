@@ -1,5 +1,5 @@
-package fr.univartois.butinfo.saeS3A01;
+package fr.univartois.butinfo.sae301;
 
-public class Vecteur {
+public class Vector {
 
 }

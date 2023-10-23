@@ -1,4 +1,4 @@
-package fr.univartois.butinfo.saeS3A01;
+package fr.univartois.butinfo.sae301;
 
 public class Triplet {
 	private double x;
@@ -7,24 +7,6 @@ public class Triplet {
 	public Triplet(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
-		this.z = z;
-	}
-	public double getX() {
-		return x;
-	}
-	public void setX(double x) {
-		this.x = x;
-	}
-	public double getY() {
-		return y;
-	}
-	public void setY(double y) {
-		this.y = y;
-	}
-	public double getZ() {
-		return z;
-	}
-	public void setZ(double z) {
 		this.z = z;
 	}
 	public Triplet add(Triplet t) {
