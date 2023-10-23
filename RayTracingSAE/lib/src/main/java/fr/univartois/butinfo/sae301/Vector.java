@@ -16,6 +16,11 @@ public class Vector {
 		return new Vector(result.getX(),result.getY(),result.getZ());
 	}
 	
+	public Point add(Point t) {
+		Triplet result = trip.add(t.getTrip());
+		return new Point(result.getX(),result.getY(),result.getZ());
+	}
+	
 	public Vector subtraction(Vector t) {
 		Triplet result = trip.subtraction(t.trip);
 		return new Vector(result.getX(),result.getY(),result.getZ());
