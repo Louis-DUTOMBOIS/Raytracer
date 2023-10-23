@@ -2,34 +2,29 @@ package fr.univartois.butinfo.sae301;
 
 
 public class Point {
-	private double x;
-	private double y;
-	private double z;
 	private Triplet trip;
 	public Point(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
 		this.trip = new Triplet(x, y, z);
 		
 	}
-	public double getX() {
-		return x;
-	}
-	public double getY() {
-		return y;
-	}
-	public double getZ() {
-		return z;
+	
+	public Triplet getTrip() {
+		return trip;
 	}
 	
-	public Triplet subtraction(Triplet t) {
-		return  Triplet.subtraction();
+	public Vector subtraction(Point t) {
+		Triplet result = trip.subtraction(t.trip);
+		return new Vector(result.getX(),result.getY(),result.getZ());
 	}
 	
-	public Triplet multiplicationScailary(double d) {
-		return new Triplet(d*x, d*y, d*z);
+	public Point multiplicationScailary(double d) {
+		Triplet result =  trip.multiplicationScailary(d);
+		return new Point(result.getX(),result.getY(),result.getZ());
 	}
 
+	public Point subtractionVec(Vector t) {
+		Triplet result = trip.subtraction(t.getTrip());
+		return new Point(result.getX(),result.getY(),result.getZ());
+	}
 	
 }
