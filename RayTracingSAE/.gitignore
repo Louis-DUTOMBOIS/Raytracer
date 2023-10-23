@@ -1,5 +1,13 @@
-# Ignore Gradle project-specific cache directory
+# Fichiers de compilation Java.
+*.class
+*.jar
+
+# Fichiers de compilation Gradle.
+build
 .gradle
 
-# Ignore Gradle build output directory
-build
+# Fichiers d'Eclipse.
+bin
+.classpath
+.project
+.settings
