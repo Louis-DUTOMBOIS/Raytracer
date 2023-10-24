@@ -14,6 +14,15 @@ public class Scene {
     private List<Light> lights;
     private List<SceneObject> sceneObjects;
 
+    public Scene(SceneBuilder sceneBuilder) {
+    	this.imageWidth = sceneBuilder.getImageWidth();
+    	this.imageHeight = sceneBuilder.getImageHeight();
+    	this.outputFileName = sceneBuilder.getOutputFileName();
+    	this.camera = sceneBuilder.getCamera();
+    	this.lights = sceneBuilder.getLights();
+    	this.sceneObjects = sceneBuilder.getSceneObjects();
+    }
+    
     /**
      * Creates a Scene with specified image dimensions, output file name, camera, lights, and scene objects.
      *
