@@ -11,7 +11,7 @@ public class Parser {
 	int width = 0;
 	int height = 0;
 	int maxverts = 0;
-	String pictureFileName = "picture.png";
+	String pictureFileName = "output.png";
 	Camera camera= null;
 	Color ambientColors = null;
 	Color diffuseColors = null;
