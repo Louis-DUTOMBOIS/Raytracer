@@ -10,7 +10,7 @@ public class DirectionalLight extends Light {
      * @param direction The direction in which the light is emitted.
      * @param color     The color of the light source.
      */
-    public DirectionalLight(Triplet direction, Triplet color) {
+    public DirectionalLight(Triplet direction, Color color) {
         super(direction, color);
     }
 
