@@ -13,7 +13,7 @@ public class SceneBuilder {
     private String outputFileName;
     private Camera camera;
     private List<Light> lights;
-    private List<SceneObject> sceneObjects;
+    private List<ISceneObject> sceneObjects;
 
     /**
      * Private constructor to enforce the use of the static factory method `newInstance()`.
@@ -92,7 +92,7 @@ public class SceneBuilder {
      * @param sceneObject The SceneObject to add to the scene.
      * @return The SceneBuilder instance for method chaining.
      */
-    public SceneBuilder addSceneObject(SceneObject sceneObject) {
+    public SceneBuilder addSceneObject(ISceneObject sceneObject) {
         this.sceneObjects.add(sceneObject);
         return this;
     }
@@ -147,7 +147,7 @@ public class SceneBuilder {
      *
      * @return The list of scene objects in the scene.
      */
-    public List<SceneObject> getSceneObjects() {
+    public List<ISceneObject> getSceneObjects() {
         return sceneObjects;
     }
 
