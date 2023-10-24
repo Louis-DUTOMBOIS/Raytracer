@@ -13,10 +13,10 @@ public class Parser {
 	int maxverts = 0;
 	String pictureFileName = "picture.png";
 	Camera camera= null;
-	List<Color> ambientColors = new ArrayList<>();
-	List<Color> diffuseColors = new ArrayList<>();
-	List<Color> specularColors = new ArrayList<>();
-	List<Integer> shininessValues = new ArrayList<>();
+	Color ambientColors = null;
+	Color diffuseColors = null;
+	Color specularColors =  null;
+	int shininessValues = 0;
 	List<Light> lights = new ArrayList<>();
 	List<PointLight> pointsLight = new ArrayList<>();
 	List<Point> points = new ArrayList<>();
@@ -44,19 +44,19 @@ public class Parser {
 		return camera;
 	}
 
-	public List<Color> getAmbientColors() {
+	public Color getAmbientColors() {
 		return ambientColors;
 	}
 
-	public List<Color> getDiffuseColors() {
+	public Color getDiffuseColors() {
 		return diffuseColors;
 	}
 
-	public List<Color> getSpecularColors() {
+	public Color getSpecularColors() {
 		return specularColors;
 	}
 
-	public List<Integer> getShininessValues() {
+	public int getShininessValues() {
 		return shininessValues;
 	}
 
@@ -119,19 +119,19 @@ public class Parser {
                         ), Integer.parseInt(parts[10]));
 					break;
 				case "ambient":
-					ambientColors.add(new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-							Double.parseDouble(parts[3])));
+					ambientColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
+							Double.parseDouble(parts[3]));
 					break;
 				case "diffuse":
-					diffuseColors.add(new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-							Double.parseDouble(parts[3])));
+					diffuseColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
+							Double.parseDouble(parts[3]));
 					break;
 				case "specular":
-					specularColors.add(new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-							Double.parseDouble(parts[3])));
+					specularColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
+							Double.parseDouble(parts[3]));
 					break;
 				case "shininess":
-					shininessValues.add(Integer.parseInt(parts[1]));
+					shininessValues = Integer.parseInt(parts[1]);
 					break;
 				case "directional":
 					lights.add(new DirectionalLight(
@@ -166,7 +166,7 @@ public class Parser {
                         int values2 = Integer.parseInt(parts[2]);
                         int values3 = Integer.parseInt(parts[3]);
                         if (values1 >= 0 && values1 < points.size() && values2 >= 0 && values2 < points.size() && values3 >= 0 && values3 < points.size()) {
-                            triangles.add(new Triangle(diffuseColors.get(0), points.get(values1), points.get(values2), points.get(values3)));
+                            triangles.add(new Triangle(diffuseColors, points.get(values1), points.get(values2), points.get(values3)));
                         }
                     }
                     break;
@@ -177,7 +177,7 @@ public class Parser {
                                 Double.parseDouble(parts[2]),
                                 Double.parseDouble(parts[3]
                             )),
-                            diffuseColors.get(0), Double.parseDouble(parts[4])
+                            diffuseColors, Double.parseDouble(parts[4])
                         ));
                         break;
 				case "plane":
