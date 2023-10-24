@@ -200,5 +200,6 @@ public class Parser {
 		for (int i = 0; i < planes.size(); i++) {
 			sceneBuild.addSceneObject(triangles.get(i));
 		}
+		sceneBuild.build();
 	}
 }
