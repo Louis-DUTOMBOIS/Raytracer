@@ -57,6 +57,6 @@ public class Triplet {
 	
 	public Triplet normalize() {
 		double len = 1/length();
-		return new Triplet(len*x,len*y,len*z);
+		return new Triplet(x/len,y/len,z/len);
 	}
 }
