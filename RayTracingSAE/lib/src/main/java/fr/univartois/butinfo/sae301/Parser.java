@@ -12,7 +12,7 @@ public class Parser {
 	int height = 0;
 	int maxverts = 0;
 	String pictureFileName = "picture.png";
-	double[] cameraParameters = new double[9];
+	Camera camera= null;
 	List<Color> ambientColors = new ArrayList<>();
 	List<Color> diffuseColors = new ArrayList<>();
 	List<Color> specularColors = new ArrayList<>();
@@ -40,8 +40,8 @@ public class Parser {
 		return pictureFileName;
 	}
 
-	public double[] getCameraParameters() {
-		return cameraParameters;
+	public Camera getCamera() {
+		return camera;
 	}
 
 	public List<Color> getAmbientColors() {
@@ -104,9 +104,19 @@ public class Parser {
 					pictureFileName = parts[1];
 					break;
 				case "camera":
-					for (int i = 0; i < 9; i++) {
-						cameraParameters[i] = Double.parseDouble(parts[i + 1]);
-					}
+					camera = new Camera(new Point(
+                            Double.parseDouble(parts[1]),
+                            Double.parseDouble(parts[2]),
+                            Double.parseDouble(parts[3])
+                        ), new Point(
+                            Double.parseDouble(parts[4]),
+                            Double.parseDouble(parts[5]),
+                            Double.parseDouble(parts[6])
+                        ), new Point(
+                            Double.parseDouble(parts[7]),
+                            Double.parseDouble(parts[8]),
+                            Double.parseDouble(parts[9])
+                        ), Integer.parseInt(parts[10]));
 					break;
 				case "ambient":
 					ambientColors.add(new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
@@ -125,7 +135,7 @@ public class Parser {
 					break;
 				case "directional":
 					lights.add(new DirectionalLight(
-							new Triplet(Double.parseDouble(parts[1]), 
+							new Vector(Double.parseDouble(parts[1]), 
 									Double.parseDouble(parts[2]),
 									Double.parseDouble(parts[3])),
 							new Color(Double.parseDouble(parts[4]), 
@@ -133,7 +143,7 @@ public class Parser {
 									Double.parseDouble(parts[6]))));
 					break;
 				case "point":
-					pointsLight.add( new PointLight(new Triplet(Double.parseDouble(parts[1]), 
+					pointsLight.add( new PointLight(new Vector(Double.parseDouble(parts[1]), 
 							Double.parseDouble(parts[2]),
 							Double.parseDouble(parts[3])),
 					new Color(Double.parseDouble(parts[4]), 
@@ -171,12 +181,36 @@ public class Parser {
                         ));
                         break;
 				case "plane":
-					planes.add(new Plane(null, null, width, height));
+					planes.add(new Plane(new Point(Double.parseDouble(parts[1]),
+                            Double.parseDouble(parts[2]),
+                            Double.parseDouble(parts[3]
+                        )),new Vector(Double.parseDouble(parts[1]),
+                            Double.parseDouble(parts[2]),
+                            Double.parseDouble(parts[3]
+                        ))));
 					break;
 				default:
                     break;
 				}
 			}
 		}
+	}
+	
+	public void constructScene() {
+		SceneBuilder sceneBuild = null;
+		sceneBuild.newInstance();
+		sceneBuild.setImageHeight(height);
+		sceneBuild.setImageWidth(width);
+		sceneBuild.setOutputFileName(pictureFileName);
+		sceneBuild.setCamera(camera);
+		for (int i=0; i<lights.size() ; i++) {
+			sceneBuild.addLight(lights.get(i));
+		}
+		for (int i=0; i<lights.size() ; i++) {
+			sceneBuild.addLight(pointsLight.get(i));
+		}
+		sceneBuild.addSceneObject((SceneObject) planes);
+		sceneBuild.addSceneObject((SceneObject) spheres);
+		sceneBuild.addSceneObject((SceneObject) triangles);	
 	}
 }

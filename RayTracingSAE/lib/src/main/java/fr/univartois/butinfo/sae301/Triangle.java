@@ -10,7 +10,6 @@ public class Triangle extends SceneObject{
      *
      * @param vector The vector of the triangle.
      * @param color The color of the triangle.
-     * @param radius The radius of the triangle.
      */
 	public Triangle(Vector pos, Color color, Vector[] vertices) {
 		super(pos, color);
