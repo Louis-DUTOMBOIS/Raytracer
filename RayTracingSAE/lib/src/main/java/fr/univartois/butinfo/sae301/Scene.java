@@ -195,4 +195,6 @@ public class Scene {
     public void addSceneObject(ISceneObject sceneObject) {
         this.sceneObjects.add(sceneObject);
     }
+
+    
 }
