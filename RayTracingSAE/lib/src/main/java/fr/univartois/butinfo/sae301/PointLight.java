@@ -10,7 +10,7 @@ public class PointLight extends Light {
      * @param position The position of the light source.
      * @param color    The color of the light source.
      */
-    public PointLight(Triplet position, Triplet color) {
+    public PointLight(Vector position, Color color) {
         super(position, color);
     }
 
