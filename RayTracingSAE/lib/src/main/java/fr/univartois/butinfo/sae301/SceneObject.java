@@ -1,8 +1,5 @@
 package fr.univartois.butinfo.sae301;
 
-import java.awt.Color;
-import java.util.Vector;
-
 public abstract class SceneObject {
 	protected Vector pos;
 	protected Color color;
@@ -11,6 +8,6 @@ public abstract class SceneObject {
 		this.color = color;
 	}
 	public void translate(Vector translation) {
-		pos = pos.add(translation);
+		pos.add(translation);
 	}
 }
