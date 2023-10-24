@@ -12,7 +12,6 @@ public class Triangle implements ISceneObject{
      * Creates a new triangle with the given vector, color and radius.
      *
      * @param color The color of the triangle.
-     * @param radius The radius of the triangle.
      */
 	public Triangle(Color color, Point point1, Point point2, Point point3) {
 		this.color = color;
