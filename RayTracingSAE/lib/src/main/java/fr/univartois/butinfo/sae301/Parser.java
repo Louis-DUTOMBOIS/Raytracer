@@ -166,7 +166,7 @@ public class Parser {
                         int values2 = Integer.parseInt(parts[2]);
                         int values3 = Integer.parseInt(parts[3]);
                         if (values1 >= 0 && values1 < points.size() && values2 >= 0 && values2 < points.size() && values3 >= 0 && values3 < points.size()) {
-                            triangles.add(new Triangle(points.get(values1), points.get(values2), points.get(values3)));
+                            triangles.add(new Triangle(null, points.get(values1), points.get(values2), points.get(values3)));
                         }
                     }
                     break;
@@ -177,7 +177,7 @@ public class Parser {
                                 Double.parseDouble(parts[2]),
                                 Double.parseDouble(parts[3]
                             )),
-                            Double.parseDouble(parts[4])
+                            diffuseColors.get(0), Double.parseDouble(parts[4])
                         ));
                         break;
 				case "plane":
@@ -209,8 +209,8 @@ public class Parser {
 		for (int i=0; i<lights.size() ; i++) {
 			sceneBuild.addLight(pointsLight.get(i));
 		}
-		sceneBuild.addSceneObject((SceneObject) planes);
-		sceneBuild.addSceneObject((SceneObject) spheres);
-		sceneBuild.addSceneObject((SceneObject) triangles);	
+		sceneBuild.addSceneObject((ISceneObject) planes);
+		sceneBuild.addSceneObject((ISceneObject) spheres);
+		sceneBuild.addSceneObject((ISceneObject) triangles);	
 	}
 }
