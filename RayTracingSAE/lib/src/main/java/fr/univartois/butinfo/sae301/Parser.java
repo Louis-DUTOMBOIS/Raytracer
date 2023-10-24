@@ -179,7 +179,7 @@ public class Parser {
 		}
 	}
 
-	public void constructScene() {
+	public Scene constructScene() {
 		SceneBuilder sceneBuild = SceneBuilder.newInstance();
 		sceneBuild.setImageHeight(height);
 		sceneBuild.setImageWidth(width);
@@ -200,6 +200,6 @@ public class Parser {
 		for (int i = 0; i < planes.size(); i++) {
 			sceneBuild.addSceneObject(triangles.get(i));
 		}
-		sceneBuild.build();
+		return sceneBuild.build();
 	}
 }
