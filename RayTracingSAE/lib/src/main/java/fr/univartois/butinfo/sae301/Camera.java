@@ -4,9 +4,9 @@ package fr.univartois.butinfo.sae301;
  * Represents a camera in a 3D scene. The camera defines the viewpoint and orientation for rendering the scene.
  */
 public class Camera {
-    private Triplet lookFrom; // The camera's position (x, y, z)
-    private Triplet lookAt; // The point the camera is aimed at (x, y, z)
-    private Triplet up; // The up vector indicating the camera's orientation (x, y, z)
+    private Point lookFrom; // The camera's position (x, y, z)
+    private Point lookAt; // The point the camera is aimed at (x, y, z)
+    private Point up; // The up vector indicating the camera's orientation (x, y, z)
     private int fov; // The field of view angle in degrees
 
     /**
@@ -17,7 +17,7 @@ public class Camera {
      * @param up       The up vector indicating the camera's orientation.
      * @param fov      The field of view angle in degrees.
      */
-    public Camera(Triplet lookFrom, Triplet lookAt, Triplet up, int fov) {
+    public Camera(Point lookFrom, Point lookAt, Point up, int fov) {
         this.lookFrom = lookFrom;
         this.lookAt = lookAt;
         this.up = up;
@@ -29,7 +29,7 @@ public class Camera {
      *
      * @return The position of the camera.
      */
-    public Triplet getLookFrom() {
+    public Point getLookFrom() {
         return lookFrom;
     }
 
@@ -38,7 +38,7 @@ public class Camera {
      *
      * @param lookFrom The new position for the camera.
      */
-    public void setLookFrom(Triplet lookFrom) {
+    public void setLookFrom(Point lookFrom) {
         this.lookFrom = lookFrom;
     }
 
@@ -47,7 +47,7 @@ public class Camera {
      *
      * @return The point the camera is aimed at.
      */
-    public Triplet getLookAt() {
+    public Point getLookAt() {
         return lookAt;
     }
 
@@ -56,7 +56,7 @@ public class Camera {
      *
      * @param lookAt The new point the camera should aim at.
      */
-    public void setLookAt(Triplet lookAt) {
+    public void setLookAt(Point lookAt) {
         this.lookAt = lookAt;
     }
 
@@ -65,7 +65,7 @@ public class Camera {
      *
      * @return The up vector of the camera.
      */
-    public Triplet getUp() {
+    public Point getUp() {
         return up;
     }
 
@@ -74,7 +74,7 @@ public class Camera {
      *
      * @param up The new up vector for the camera's orientation.
      */
-    public void setUp(Triplet up) {
+    public void setUp(Point up) {
         this.up = up;
     }
 

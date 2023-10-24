@@ -8,12 +8,12 @@ public abstract class Light {
     /**
      * The direction of the light (for directional lights) or the position of the light (for point lights).
      */
-    protected Triplet direction;
+    protected Vector direction;
 
     /**
      * The color of the light.
      */
-    protected Triplet color;
+    protected Color color;
 
     /**
      * Creates a new light with the given direction and color.
@@ -21,7 +21,7 @@ public abstract class Light {
      * @param direction The direction or position of the light.
      * @param color The color of the light.
      */
-    public Light(Triplet direction, Triplet color) {
+    public Light(Vector direction, Color color) {
         this.direction = direction;
         this.color = color;
     }
