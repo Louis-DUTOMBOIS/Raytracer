@@ -12,7 +12,7 @@ public class Scene {
     private String outputFileName;
     private Camera camera;
     private List<Light> lights;
-    private List<SceneObject> sceneObjects;
+    private List<ISceneObject> sceneObjects;
 
     public Scene(SceneBuilder sceneBuilder) {
     	this.imageWidth = sceneBuilder.getImageWidth();
@@ -34,7 +34,7 @@ public class Scene {
      * @param sceneObjects   A list of scene objects (e.g., spheres, planes, triangles).
      */
     public Scene(int imageWidth, int imageHeight, String outputFileName, Camera camera, List<Light> lights,
-                 List<SceneObject> sceneObjects) {
+                 List<ISceneObject> sceneObjects) {
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
         this.outputFileName = outputFileName;
@@ -165,7 +165,7 @@ public class Scene {
      *
      * @return The list of scene objects in the scene.
      */
-    public List<SceneObject> getSceneObjects() {
+    public List<ISceneObject> getSceneObjects() {
         return sceneObjects;
     }
 
@@ -174,7 +174,7 @@ public class Scene {
      *
      * @param sceneObjects The list of scene objects to set.
      */
-    public void setSceneObjects(List<SceneObject> sceneObjects) {
+    public void setSceneObjects(List<ISceneObject> sceneObjects) {
         this.sceneObjects = sceneObjects;
     }
 	
@@ -192,7 +192,7 @@ public class Scene {
      *
      * @param sceneObject The scene object to add.
      */
-    public void addSceneObject(SceneObject sceneObject) {
+    public void addSceneObject(ISceneObject sceneObject) {
         this.sceneObjects.add(sceneObject);
     }
 }
