@@ -109,7 +109,7 @@ public class Parser {
 									Double.parseDouble(parts[3])),
 							new Point(Double.parseDouble(parts[4]), Double.parseDouble(parts[5]),
 									Double.parseDouble(parts[6])),
-							new Point(Double.parseDouble(parts[7]), Double.parseDouble(parts[8]),
+							new Vector(Double.parseDouble(parts[7]), Double.parseDouble(parts[8]),
 									Double.parseDouble(parts[9])),
 							Integer.parseInt(parts[10]));
 					break;

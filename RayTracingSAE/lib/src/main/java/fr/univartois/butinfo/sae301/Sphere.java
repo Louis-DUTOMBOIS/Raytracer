@@ -62,9 +62,9 @@ public class Sphere implements ISceneObject{
 	 */
 	public double intersect(Point p, Vector d) {
 	    Vector oc = p.subtraction(this.pos); // Vector from the center of the sphere to the ray's origin
-	    double a = d.scalarProduct(d.getTrip());
-	    double b = 2.0 * oc.scalarProduct(d.getTrip());
-	    double c = oc.scalarProduct(oc.getTrip()) - this.radius * this.radius;
+	    double a = d.scalarProduct(d);
+	    double b = 2.0 * oc.scalarProduct(d);
+	    double c = oc.scalarProduct(oc) - this.radius * this.radius;
 	    double discriminant = b * b - 4.0 * a * c;
 
 	    if (discriminant < 0) {

@@ -16,7 +16,10 @@ public class Main {
 
         try {
             parser.read(file);
-            parser.constructScene();
+            Scene s = parser.constructScene();
+            CreatePicture picture = new CreatePicture(s);
+            picture.getMyImage();
+            
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + file);
             System.exit(1);

@@ -6,7 +6,7 @@ package fr.univartois.butinfo.sae301;
 public class Camera {
     private Point lookFrom; // The camera's position (x, y, z)
     private Point lookAt; // The point the camera is aimed at (x, y, z)
-    private Point up; // The up vector indicating the camera's orientation (x, y, z)
+    private Vector up; // The up vector indicating the camera's orientation (x, y, z)
     private int fov; // The field of view angle in degrees
 
     /**
@@ -17,7 +17,7 @@ public class Camera {
      * @param up       The up vector indicating the camera's orientation.
      * @param fov      The field of view angle in degrees.
      */
-    public Camera(Point lookFrom, Point lookAt, Point up, int fov) {
+    public Camera(Point lookFrom, Point lookAt, Vector up, int fov) {
         this.lookFrom = lookFrom;
         this.lookAt = lookAt;
         this.up = up;
@@ -65,7 +65,7 @@ public class Camera {
      *
      * @return The up vector of the camera.
      */
-    public Point getUp() {
+    public Vector getUp() {
         return up;
     }
 
@@ -74,7 +74,7 @@ public class Camera {
      *
      * @param up The new up vector for the camera's orientation.
      */
-    public void setUp(Point up) {
+    public void setUp(Vector up) {
         this.up = up;
     }
 
