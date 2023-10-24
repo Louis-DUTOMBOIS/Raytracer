@@ -32,5 +32,13 @@ public class Plane implements ISceneObject{
 		this.normal = normal;
 	}
 	
+	/**
+     * Throws an UnsupportedOperationException.
+     *
+     * @throws UnsupportedOperationException This method is not supported for triangles.
+     */
+    public double getDistanceToIntersection(Point p, Vector d) {
+        throw new UnsupportedOperationException("This method is not supported for planes.");
+    }
 
 }
