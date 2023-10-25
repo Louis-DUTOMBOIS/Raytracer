@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 import javax.imageio.ImageIO;
 
@@ -15,13 +16,14 @@ public class CreatePicture {
 	private double fov;
 	private Vector up;
 	private List<ISceneObject> sceneObjects = new ArrayList<ISceneObject>();
-	
+    private String name;
+
 	private double fovr;
 	private double realHeight;
 	private double pixelHeight;
 	private double realWidth;
 	private double pixelWidth;
-	
+
 	public CreatePicture(Scene scene) {
 		this.imgWidth = scene.getImageWidth();
 		this.imgHeight = scene.getImageHeight();
@@ -30,14 +32,13 @@ public class CreatePicture {
 		this.fov = scene.getCamera().getFov();
 		this.up = scene.getCamera().getUp();
 		this.sceneObjects = scene.getSceneObjects();
+		this.name = scene.getOutputFileName();
 		fovr = (fov * Math.PI) / 180.0;
 		realHeight = 2.0 * Math.tan(fovr / 2);
 		pixelHeight = realHeight / imgHeight;
 		realWidth = imgWidth * pixelHeight;
 		pixelWidth = realWidth / imgWidth;
 	}
-	
-
 
 	public double littleA(int i) {
 		double a = (-realWidth / 2) + (i + 0.5) * pixelWidth;
@@ -50,7 +51,7 @@ public class CreatePicture {
 	}
 
 	public Vector calcul(int i, int j, Vector up) {
-		
+
 		Vector w = lookFrom.subtraction(lookAt);
 		Vector normW = w.normalize();
 
@@ -60,7 +61,8 @@ public class CreatePicture {
 		Vector v = normW.vectorProduct(normU.getTrip());
 		Vector norm = v.normalize();
 
-		Vector d = ((normU.multiplicationScailary(littleA(i))).add(norm.multiplicationScailary(littleB(j)))).subtraction(normW);
+		Vector d = ((normU.multiplicationScailary(littleA(i))).add(norm.multiplicationScailary(littleB(j))))
+				.subtraction(normW);
 		Vector normD = d.normalize();
 		return normD;
 
@@ -77,26 +79,35 @@ public class CreatePicture {
 
 				Point intersection = null;
 				if (sceneObjects != null) {
-					ISceneObject s = sceneObjects.get(0);
-					t = s.intersect(lookFrom, d);
-					if (t != -1) {
-						System.out.println("hey");
-						intersection = d.add(lookFrom).multiplicationScailary(t);
+					for (int element = 0; element < sceneObjects.size(); element++) {
+						ISceneObject s = sceneObjects.get(element);
+						t = s.intersect(lookFrom, d);
+						if (t != -1) {
+							intersection = d.add(lookFrom).multiplicationScailary(t);
+						}
+						ISceneObject sphere = sceneObjects.get(i);
+
+		                int r = (int) sphere.getColor().getTrip().getX()*255;
+		                int g = (int) sphere.getColor().getTrip().getY()*255;
+		                int b = (int) sphere.getColor().getTrip().getZ()*255;
+
+		                Color color = new Color(r,g,b);
+
+		                if (intersection != null) {
+		                    image.setRGB(i, j, color.getRGB());
+		                }
+
+						else {
+							image.setRGB(i, j, 0);
+						}
 					}
-				}
 
-				if (intersection != null) {
-					image.setRGB(i, j, 19786451);
-				}
-
-				else {
-					image.setRGB(i, j, 0);
-				}
+				}	
 			}
 		}
 
 		try {
-			File outputImage = new File("output.png");
+			File outputImage = new File(name);
 			ImageIO.write(image, "png", outputImage);
 		} catch (Exception e) {
 			e.printStackTrace();
