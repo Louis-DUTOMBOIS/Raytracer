@@ -23,6 +23,7 @@ public class Parser {
 	private List<Triangle> triangles = new ArrayList<>();
 	private List<Sphere> spheres = new ArrayList<>();
 	private List<Plane> planes = new ArrayList<>();
+	private boolean shadow = false;
 
 	public int getMaxverts() {
 		return maxverts;
@@ -173,6 +174,10 @@ public class Parser {
 									Double.parseDouble(parts[3])),
 							ambientColors));
 					break;
+				case "shadow":
+					if (parts[1] == "true") {
+						this.shadow=true;
+					}
 				default:
 					break;
 				}
