@@ -5,4 +5,5 @@ public interface ISceneObject {
 	Point getOrigin();
 	
 	double intersect(Point p, Vector d);
+	Color getColor();
 }

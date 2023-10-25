@@ -163,14 +163,15 @@ public class Parser {
 					break;
 				case "sphere":
 					spheres.add(new Sphere(new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-							Double.parseDouble(parts[3])), diffuseColors, Double.parseDouble(parts[4])));
+							Double.parseDouble(parts[3])), ambientColors, Double.parseDouble(parts[4])));
 					break;
 				case "plane":
 					planes.add(new Plane(
 							new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
 									Double.parseDouble(parts[3])),
 							new Vector(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-									Double.parseDouble(parts[3]))));
+									Double.parseDouble(parts[3])),
+							ambientColors));
 					break;
 				default:
 					break;

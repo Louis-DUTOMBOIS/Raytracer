@@ -3,6 +3,7 @@ package fr.univartois.butinfo.sae301;
 public class Plane implements ISceneObject{
 	private Point pos;
 	private Vector normal;
+	private Color color;
 	/*
      * Creates a new plane with the given vector, color and radius.
      *
@@ -11,9 +12,10 @@ public class Plane implements ISceneObject{
      * @param width The width of the plane.
      * @param height The height of the plane.
      */
-	public Plane (Point pos, Vector normal) {
+	public Plane (Point pos, Vector normal, Color color) {
 		this.pos = pos;
 		this.normal = normal;
+		this.color = color;
 	}
 	@Override
 	public Point getOrigin() {
@@ -44,6 +46,11 @@ public class Plane implements ISceneObject{
 	public double intersect(Point p, Vector d) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	@Override
+	public Color getColor() {
+		// TODO Auto-generated method stub
+		return color;
 	}
 
 }
