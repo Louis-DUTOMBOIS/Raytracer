@@ -8,21 +8,21 @@ import java.util.Scanner;
 
 public class Parser {
 
-	int width = 0;
-	int height = 0;
-	int maxverts = 0;
-	String pictureFileName = "output.png";
-	Camera camera= null;
-	Color ambientColors = null;
-	Color diffuseColors = null;
-	Color specularColors = null;
-	int shininessValues = 0;
-	List<Light> lights = new ArrayList<>();
-	List<PointLight> pointsLight = new ArrayList<>();
-	List<Point> points = new ArrayList<>();
-	List<Triangle> triangles = new ArrayList<>();
-	List<Sphere> spheres = new ArrayList<>();
-	List<Plane> planes = new ArrayList<>();
+	private int width = 0;
+	private int height = 0;
+	private int maxverts = 0;
+	private String pictureFileName = "output.png";
+	private Camera camera= null;
+	private Color ambientColors = null;
+	private Color diffuseColors = null;
+	private Color specularColors = null;
+	private int shininessValues = 0;
+	private List<Light> lights = new ArrayList<>();
+	private List<PointLight> pointsLight = new ArrayList<>();
+	private List<Point> points = new ArrayList<>();
+	private List<Triangle> triangles = new ArrayList<>();
+	private List<Sphere> spheres = new ArrayList<>();
+	private List<Plane> planes = new ArrayList<>();
 
 	public int getMaxverts() {
 		return maxverts;
@@ -112,7 +112,6 @@ public class Parser {
 							new Vector(Double.parseDouble(parts[7]), Double.parseDouble(parts[8]),
 									Double.parseDouble(parts[9])),
 							Integer.parseInt(parts[10]));
-					System.out.println(Double.parseDouble(parts[3]));
 					break;
 				case "ambient":
 					ambientColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),

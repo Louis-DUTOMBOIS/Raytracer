@@ -15,12 +15,8 @@ public class Main {
         Parser parser = new Parser();
 
         try {
-        	Vector v = new Vector(2.5, 75.2, 78.1);
-        	System.out.println(v.getTrip().getX());
-        	
             parser.read(file);
             Scene s = parser.constructScene();
-            System.out.println(s.toString());
             CreatePicture picture = new CreatePicture(s);
             picture.getMyImage();
             
