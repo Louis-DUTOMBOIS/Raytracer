@@ -15,8 +15,6 @@ public class Main {
         Parser parser = new Parser();
 
         try {
-        	Vector v = new Vector(2.5, 75.2, 78.1);
-        	
             parser.read(file);
             Scene s = parser.constructScene();
             CreatePicture picture = new CreatePicture(s);

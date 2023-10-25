@@ -85,11 +85,11 @@ public class CreatePicture {
 						if (t != -1) {
 							intersection = d.add(lookFrom).multiplicationScailary(t);
 						}
-						ISceneObject sphere = sceneObjects.get(i);
+						ISceneObject sphere = sceneObjects.get(0);
 
-		                int r = (int) sphere.getColor().getTrip().getX()*255;
-		                int g = (int) sphere.getColor().getTrip().getY()*255;
-		                int b = (int) sphere.getColor().getTrip().getZ()*255;
+		                float r = (float) (sphere.getColor().getTrip().getX());
+		                float g = (float) (sphere.getColor().getTrip().getY());
+		                float b = (float) (sphere.getColor().getTrip().getZ());
 
 		                Color color = new Color(r,g,b);
 
