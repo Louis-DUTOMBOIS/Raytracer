@@ -32,4 +32,12 @@ public abstract class Light {
      * @return The type of the light.
      */
     public abstract LightType getType();
+    
+    public Color getColorFromLight() {
+    	return this.color;
+    }
+    
+    public Vector direction() {
+    	return this.direction;
+    }
 }
