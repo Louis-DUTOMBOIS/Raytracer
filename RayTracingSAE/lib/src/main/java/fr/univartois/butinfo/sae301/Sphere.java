@@ -67,8 +67,6 @@ public class Sphere implements ISceneObject{
 	    double b = (oc.multiplicationScailary(2)).scalarProduct(d);
 	    double c = oc.scalarProduct(oc) - (this.radius*this.radius);
 	    double discriminant = (b * b) - 4.0 * a * c;
-	    
-	    System.out.println("a: "+ a+ " b : "+b+" c : "+c+" discri : "+discriminant+" oc: "+ oc);
 
 	    if (discriminant < 0) {
 	        return -1; // No intersection
