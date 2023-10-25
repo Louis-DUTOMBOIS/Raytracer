@@ -6,4 +6,3 @@ output sphere2.png
 ambient 1 0 0
 
 sphere -1 0 0 1
-sphere 1 0 0 1

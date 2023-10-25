@@ -40,12 +40,12 @@ public class CreatePicture {
 
 
 	public double littleA(int i) {
-		double a = (-(imgWidth / 2)) + (i + 0.5) * pixelWidth;
+		double a = (-realWidth / 2) + (i + 0.5) * pixelWidth;
 		return a;
 	}
 
 	public double littleB(int j) {
-		double b = (imgHeight / 2) - (j + 0.5) * pixelHeight;
+		double b = (realHeight / 2) - (j + 0.5) * pixelHeight;
 		return b;
 	}
 
@@ -54,13 +54,13 @@ public class CreatePicture {
 		Vector w = lookFrom.subtraction(lookAt);
 		Vector normW = w.normalize();
 
-		Vector u = up.vectorProduct(w.getTrip());
+		Vector u = up.vectorProduct(normW.getTrip());
 		Vector normU = u.normalize();
 
-		Vector v = w.vectorProduct(u.getTrip());
+		Vector v = normW.vectorProduct(normU.getTrip());
 		Vector norm = v.normalize();
 
-		Vector d = u.multiplicationScailary(littleA(i)).add(u.multiplicationScailary(littleB(j))).subtraction(w);
+		Vector d = ((normU.multiplicationScailary(littleA(i))).add(norm.multiplicationScailary(littleB(j)))).subtraction(normW);
 		Vector normD = d.normalize();
 		return normD;
 
@@ -86,7 +86,7 @@ public class CreatePicture {
 				}
 
 				if (intersection != null) {
-					image.setRGB(i, j, 26845312);
+					image.setRGB(i, j, 19786451);
 				}
 
 				else {

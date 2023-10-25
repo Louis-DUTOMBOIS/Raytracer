@@ -68,7 +68,7 @@ public class Triplet {
      * @return A new triplet representing the result of the subtraction.
      */
     public Triplet subtraction(Triplet t) {
-        return new Triplet(t.x - x, t.y - y, t.z - z);
+        return new Triplet(x - t.x, y - t.y, z - t.z);
     }
 
     /**
