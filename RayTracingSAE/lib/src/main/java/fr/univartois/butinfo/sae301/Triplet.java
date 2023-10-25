@@ -129,4 +129,10 @@ public class Triplet {
         double len = 1 / length();
         return new Triplet(len * x, len * y, len * z);
     }
+
+	@Override
+	public String toString() {
+		return "Triplet [x=" + x + ", y=" + y + ", z=" + z + "]";
+	}
+    
 }

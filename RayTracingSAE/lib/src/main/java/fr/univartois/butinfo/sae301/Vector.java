@@ -111,4 +111,11 @@ public class Vector {
         Triplet result = trip.normalize();
         return new Vector(result.getX(), result.getY(), result.getZ());
     }
+
+	@Override
+	public String toString() {
+		return "Vector [trip=" + trip + "]";
+	}
+    
+    
 }

@@ -55,6 +55,11 @@ public class Triangle implements ISceneObject{
     public double getDistanceToIntersection(Point p, Vector d) {
         throw new UnsupportedOperationException("This method is not supported for triangles.");
     }
+	@Override
+	public double intersect(Point p, Vector d) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 }

@@ -112,6 +112,7 @@ public class Parser {
 							new Vector(Double.parseDouble(parts[7]), Double.parseDouble(parts[8]),
 									Double.parseDouble(parts[9])),
 							Integer.parseInt(parts[10]));
+					System.out.println(Double.parseDouble(parts[3]));
 					break;
 				case "ambient":
 					ambientColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
@@ -194,10 +195,10 @@ public class Parser {
 		for (int i = 0; i < planes.size(); i++) {
 			sceneBuild.addSceneObject(planes.get(i));
 		}
-		for (int i = 0; i < planes.size(); i++) {
+		for (int i = 0; i < spheres.size(); i++) {
 			sceneBuild.addSceneObject(spheres.get(i));
 		}
-		for (int i = 0; i < planes.size(); i++) {
+		for (int i = 0; i < triangles.size(); i++) {
 			sceneBuild.addSceneObject(triangles.get(i));
 		}
 		return sceneBuild.build();
