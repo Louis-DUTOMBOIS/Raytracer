@@ -26,11 +26,13 @@ public class CreatePicture {
 	}
 
 	double fovr = fov * Math.PI / 180;
-	double pixelHeight = Math.tan(fovr / 2);
-	double pixelWidth = pixelHeight * ((double) imgWidth / (double) imgHeight);
+	double realHeight = 2 * Math.tan(fovr/2);
+	double pixelHeight = realHeight/imgHeight;
+	double realWidth = imgWidth * pixelHeight;
+	double pixelWidth = realWidth/imgWidth;
 
 	public double littleA(int i) {
-		double a = (-(imgHeight / 2)) + (i + 0.5) * pixelWidth;
+		double a = (-(imgWidth / 2)) + (i + 0.5) * pixelWidth;
 		return a;
 	}
 
@@ -46,8 +48,8 @@ public class CreatePicture {
 		Vector u = up.vectorProduct(w.getTrip());
 		Vector normU = u.normalize();
 
-		Vector v = w.vectorProduct(w.getTrip());
-		Vector norm = u.normalize();
+		Vector v = w.vectorProduct(u.getTrip());
+		Vector norm = v.normalize();
 
 		Vector d = u.multiplicationScailary(littleA(i)).add(u.multiplicationScailary(littleB(j))).subtraction(w);
 		Vector normD = d.normalize();
