@@ -2,6 +2,7 @@ package fr.univartois.butinfo.sae301;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -13,8 +14,14 @@ public class CreatePicture {
 	private Point lookFrom;
 	private double fov;
 	private Vector up;
-	private List<ISceneObject> sceneObjects;
-
+	private List<ISceneObject> sceneObjects = new ArrayList<ISceneObject>();
+	
+	private double fovr;
+	private double realHeight;
+	private double pixelHeight;
+	private double realWidth;
+	private double pixelWidth;
+	
 	public CreatePicture(Scene scene) {
 		this.imgWidth = scene.getImageWidth();
 		this.imgHeight = scene.getImageHeight();
@@ -23,13 +30,14 @@ public class CreatePicture {
 		this.fov = scene.getCamera().getFov();
 		this.up = scene.getCamera().getUp();
 		this.sceneObjects = scene.getSceneObjects();
+		fovr = (fov * Math.PI) / 180.0;
+		realHeight = 2.0 * Math.tan(fovr / 2);
+		pixelHeight = realHeight / imgHeight;
+		realWidth = imgWidth * pixelHeight;
+		pixelWidth = realWidth / imgWidth;
 	}
+	
 
-	double fovr = fov * Math.PI / 180;
-	double realHeight = 2 * Math.tan(fovr/2);
-	double pixelHeight = realHeight/imgHeight;
-	double realWidth = imgWidth * pixelHeight;
-	double pixelWidth = realWidth/imgWidth;
 
 	public double littleA(int i) {
 		double a = (-(imgWidth / 2)) + (i + 0.5) * pixelWidth;
@@ -42,6 +50,7 @@ public class CreatePicture {
 	}
 
 	public Vector calcul(int i, int j, Vector up) {
+		
 		Vector w = lookFrom.subtraction(lookAt);
 		Vector normW = w.normalize();
 
@@ -60,44 +69,28 @@ public class CreatePicture {
 	public BufferedImage getMyImage() {
 
 		BufferedImage image = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_RGB);
-
 		for (int i = 0; i < imgWidth; i++) {
 			for (int j = 0; j < imgHeight; j++) {
 
-				Vector d = calcul(j, j, up);
+				Vector d = calcul(i, j, up);
 				double t = 0;
 
 				Point intersection = null;
 				if (sceneObjects != null) {
-					Vector oc = lookFrom.subtraction(sceneObjects.get(i).getOrigin());
-					double a = d.scalarProduct(d);
-					double b = 2.0 * oc.scalarProduct(d);
-					double c = oc.scalarProduct(oc)
-							- ((Sphere) sceneObjects.get(i)).getRadius() * ((Sphere) sceneObjects.get(i)).getRadius();
-					double discriminant = b * b - 4.0 * a * c;
-
-					if (discriminant < 0) {
-						t = -1.0;
-					} else {
-						double t1 = (-b - Math.sqrt(discriminant)) / (2.0 * a);
-						double t2 = (-b + Math.sqrt(discriminant)) / (2.0 * a);
-						if (t1 >= 0) {
-				            t = t1; // Intersection at t1 (closest intersection)
-				        } else if (t2 >= 0) {
-				            t = t2; // Intersection at t2
-				        } else {
-				            t = -1; // No intersection
-				        }
-						if (t != -1) {
-							intersection = d.add(lookFrom).multiplicationScailary(t);
-						}
+					ISceneObject s = sceneObjects.get(0);
+					t = s.intersect(lookFrom, d);
+					if (t != -1) {
+						System.out.println("hey");
+						intersection = d.add(lookFrom).multiplicationScailary(t);
 					}
+				}
 
-					if (intersection != null) {
-						image.setRGB(i, j, 7989);
-					} else {
-						image.setRGB(i, j, 0);
-					}
+				if (intersection != null) {
+					image.setRGB(i, j, 26845312);
+				}
+
+				else {
+					image.setRGB(i, j, 0);
 				}
 			}
 		}

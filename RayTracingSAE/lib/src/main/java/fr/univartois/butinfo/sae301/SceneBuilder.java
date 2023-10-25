@@ -1,5 +1,6 @@
 package fr.univartois.butinfo.sae301;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public class SceneBuilder {
     private String outputFileName;
     private Camera camera;
     private List<Light> lights;
-    private List<ISceneObject> sceneObjects;
+    private List<ISceneObject> sceneObjects = new ArrayList<ISceneObject>();
 
     /**
      * Private constructor to enforce the use of the static factory method `newInstance()`.

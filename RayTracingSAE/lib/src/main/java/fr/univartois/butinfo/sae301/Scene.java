@@ -196,5 +196,12 @@ public class Scene {
         this.sceneObjects.add(sceneObject);
     }
 
+	@Override
+	public String toString() {
+		return "Scene [imageWidth=" + imageWidth + ", imageHeight=" + imageHeight + ", outputFileName=" + outputFileName
+				+ ", camera=" + camera + ", lights=" + lights + ", sceneObjects=" + sceneObjects + "]";
+	}
+
+    
     
 }
