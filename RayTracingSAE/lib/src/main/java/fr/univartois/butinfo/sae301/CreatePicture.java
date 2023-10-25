@@ -16,7 +16,7 @@ public class CreatePicture {
 	private double fov;
 	private Vector up;
 	private List<ISceneObject> sceneObjects = new ArrayList<ISceneObject>();
-    private String name;
+	private String name;
 
 	private double fovr;
 	private double realHeight;
@@ -85,24 +85,25 @@ public class CreatePicture {
 						if (t != -1) {
 							intersection = d.add(lookFrom).multiplicationScailary(t);
 						}
-						ISceneObject sphere = sceneObjects.get(0);
 
-		                float r = (float) (sphere.getColor().getTrip().getX());
-		                float g = (float) (sphere.getColor().getTrip().getY());
-		                float b = (float) (sphere.getColor().getTrip().getZ());
+						if (intersection != null) {
 
-		                Color color = new Color(r,g,b);
+							ISceneObject sphere = sceneObjects.get(element);
 
-		                if (intersection != null) {
-		                    image.setRGB(i, j, color.getRGB());
-		                }
+							float r = (float) (sphere.getColor().getTrip().getX());
+							float g = (float) (sphere.getColor().getTrip().getY());
+							float b = (float) (sphere.getColor().getTrip().getZ());
+
+							Color color = new Color(r, g, b);
+							image.setRGB(i, j, color.getRGB());
+						}
 
 						else {
 							image.setRGB(i, j, 0);
 						}
 					}
 
-				}	
+				}
 			}
 		}
 

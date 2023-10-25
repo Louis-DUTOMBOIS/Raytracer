@@ -157,7 +157,7 @@ public class Parser {
 						int values3 = Integer.parseInt(parts[3]);
 						if (values1 >= 0 && values1 < points.size() && values2 >= 0 && values2 < points.size()
 								&& values3 >= 0 && values3 < points.size()) {
-							triangles.add(new Triangle(diffuseColors, points.get(values1), points.get(values2),
+							triangles.add(new Triangle(ambientColors, points.get(values1), points.get(values2),
 									points.get(values3)));
 						}
 					}
