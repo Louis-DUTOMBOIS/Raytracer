@@ -61,4 +61,11 @@ public class Color {
         Triplet result = trip.schurProduct(c.getTrip());
         return new Color(result.getX(), result.getY(), result.getZ());
     }
+
+	@Override
+	public String toString() {
+		return "Color [trip=" + trip + "]";
+	}
+    
+    
 }

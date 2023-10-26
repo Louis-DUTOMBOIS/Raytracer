@@ -47,7 +47,7 @@ public class Vector {
      */
     public Point add(Point t) {
         Triplet result = trip.add(t.getTrip());
-        return new Point(result.getX(), result.getY(), result.getZ());
+        return new Point(result.getX(), result.getY(), result.getZ(),t.getColor());
     }
 
     /**

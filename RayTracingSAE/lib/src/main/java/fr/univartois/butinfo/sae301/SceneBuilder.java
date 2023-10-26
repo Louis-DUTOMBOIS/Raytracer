@@ -13,7 +13,7 @@ public class SceneBuilder {
     private int imageHeight;
     private String outputFileName;
     private Camera camera;
-    private List<Light> lights;
+    private List<Light> lights = new ArrayList<Light>();
     private List<ISceneObject> sceneObjects = new ArrayList<ISceneObject>();
 
     /**

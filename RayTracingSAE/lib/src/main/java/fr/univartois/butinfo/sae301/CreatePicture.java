@@ -15,8 +15,9 @@ public class CreatePicture {
 	private Point lookFrom;
 	private double fov;
 	private Vector up;
-	private List<ISceneObject> sceneObjects = new ArrayList<ISceneObject>();
+	private List<ISceneObject> sceneObjects = new ArrayList<>();
 	private String name;
+	private List<Light> lights;
 
 	private double fovr;
 	private double realHeight;
@@ -33,6 +34,7 @@ public class CreatePicture {
 		this.up = scene.getCamera().getUp();
 		this.sceneObjects = scene.getSceneObjects();
 		this.name = scene.getOutputFileName();
+		this.lights = scene.getLights();
 		fovr = (fov * Math.PI) / 180.0;
 		realHeight = 2.0 * Math.tan(fovr / 2);
 		pixelHeight = realHeight / imgHeight;
@@ -41,13 +43,11 @@ public class CreatePicture {
 	}
 
 	public double littleA(int i) {
-		double a = (-realWidth / 2) + (i + 0.5) * pixelWidth;
-		return a;
+		return (-realWidth / 2) + (i + 0.5) * pixelWidth;
 	}
 
 	public double littleB(int j) {
-		double b = (realHeight / 2) - (j + 0.5) * pixelHeight;
-		return b;
+		return (realHeight / 2) - (j + 0.5) * pixelHeight;
 	}
 
 	public Vector calcul(int i, int j, Vector up) {
@@ -63,8 +63,7 @@ public class CreatePicture {
 
 		Vector d = ((normU.multiplicationScailary(littleA(i))).add(norm.multiplicationScailary(littleB(j))))
 				.subtraction(normW);
-		Vector normD = d.normalize();
-		return normD;
+		return d.normalize();
 
 	}
 
@@ -77,31 +76,34 @@ public class CreatePicture {
 				Vector d = calcul(i, j, up);
 				double t = 0;
 
-				Point intersection = null;
+				Point intersection;
 				if (sceneObjects != null) {
 					for (int element = 0; element < sceneObjects.size(); element++) {
 						ISceneObject s = sceneObjects.get(element);
 						t = s.intersect(lookFrom, d);
 						if (t != -1) {
 							intersection = d.add(lookFrom).multiplicationScailary(t);
+						
+							ISceneObject object = sceneObjects.get(element);
+							if (lights.isEmpty()) {
+								Color color = BasicStrategy.calculateColor(d, lights, intersection, s);
+								image.setRGB(i, j, color.getRGB());
+							} else {
+								if (sceneObjects instanceof Sphere) {
+									System.out.println("hey");
+									Point p = d.multiplicationScailary(t).add(s.getOrigin());
+									Vector n = (intersection.subtraction(s.getOrigin())).normalize();
+									Color color = LambertMethodStrategy.calculateColor(n, lights, intersection, s);
+									System.out.println(color);
+									image.setRGB(i, j, color.getRGB());
+								}
+				
+							}
+
 						}
-
-						if (intersection != null) {
-
-							ISceneObject sphere = sceneObjects.get(element);
-
-							float r = (float) (sphere.getColor().getTrip().getX());
-							float g = (float) (sphere.getColor().getTrip().getY());
-							float b = (float) (sphere.getColor().getTrip().getZ());
-
-							Color color = new Color(r, g, b);
-							image.setRGB(i, j, color.getRGB());
 						}
-
-						else {
+					}else {
 							image.setRGB(i, j, 0);
-						}
-					}
 
 				}
 			}
