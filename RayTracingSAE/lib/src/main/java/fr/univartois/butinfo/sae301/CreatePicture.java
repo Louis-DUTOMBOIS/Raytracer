@@ -17,6 +17,7 @@ public class CreatePicture {
 	private Vector up;
 	private List<ISceneObject> sceneObjects = new ArrayList<ISceneObject>();
 	private String name;
+	private boolean shadow = false;
 
 	private double fovr;
 	private double realHeight;
@@ -33,6 +34,7 @@ public class CreatePicture {
 		this.up = scene.getCamera().getUp();
 		this.sceneObjects = scene.getSceneObjects();
 		this.name = scene.getOutputFileName();
+		this.shadow = scene.isShadow();
 		fovr = (fov * Math.PI) / 180.0;
 		realHeight = 2.0 * Math.tan(fovr / 2);
 		pixelHeight = realHeight / imgHeight;
@@ -69,7 +71,9 @@ public class CreatePicture {
 	}
 
 	public BufferedImage getMyImage() {
-
+		int c1 = 0;
+		int c2 = 0;
+		int c3 = 0;
 		BufferedImage image = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < imgWidth; i++) {
 			for (int j = 0; j < imgHeight; j++) {
@@ -89,13 +93,38 @@ public class CreatePicture {
 						if (intersection != null) {
 
 							ISceneObject sphere = sceneObjects.get(element);
+							if (shadow==true) {
+								c1+=1;
+								IShadowStrategy shadowObject = new EnabledShadowStrategy();
+								if (shadowObject.detectShadow(intersection, sphere, d, t)) {
+									c3 += 1;
+									float r = (float) 0;
+									float g = (float) 1;
+									float b = (float) 0;
 
-							float r = (float) (sphere.getColor().getTrip().getX());
-							float g = (float) (sphere.getColor().getTrip().getY());
-							float b = (float) (sphere.getColor().getTrip().getZ());
+									Color color = new Color(r, g, b);
+									image.setRGB(i, j, color.getRGB());
+								}
+								else {
+									c2 += 1;
+									float r = (float) (sphere.getColor().getTrip().getX());
+									float g = (float) (sphere.getColor().getTrip().getY());
+									float b = (float) (sphere.getColor().getTrip().getZ());
 
-							Color color = new Color(r, g, b);
-							image.setRGB(i, j, color.getRGB());
+									Color color = new Color(r, g, b);
+									image.setRGB(i, j, color.getRGB());
+								}
+							}
+							else {
+								c2 += 1;
+								float r = (float) (sphere.getColor().getTrip().getX());
+								float g = (float) (sphere.getColor().getTrip().getY());
+								float b = (float) (sphere.getColor().getTrip().getZ());
+
+								Color color = new Color(r, g, b);
+								image.setRGB(i, j, color.getRGB());
+							}
+
 						}
 
 						else {
@@ -106,7 +135,11 @@ public class CreatePicture {
 				}
 			}
 		}
-
+		System.out.println("nombre shadow true: "+c1);
+		System.out.println();
+		System.out.println("nombre detection shadow: "+c3);
+		System.out.println();
+		System.out.println("nombre sans shadow: "+c2);
 		try {
 			File outputImage = new File(name);
 			ImageIO.write(image, "png", outputImage);

@@ -11,6 +11,7 @@ public class Scene {
     private int imageHeight;
     private String outputFileName;
     private Camera camera;
+    private boolean shadow;
     private List<Light> lights;
     private List<ISceneObject> sceneObjects;
 
@@ -21,6 +22,7 @@ public class Scene {
     	this.camera = sceneBuilder.getCamera();
     	this.lights = sceneBuilder.getLights();
     	this.sceneObjects = sceneBuilder.getSceneObjects();
+    	this.shadow = sceneBuilder.isShadow();
     }
     
     /**
@@ -202,6 +204,15 @@ public class Scene {
 				+ ", camera=" + camera + ", lights=" + lights + ", sceneObjects=" + sceneObjects + "]";
 	}
 
+	public boolean isShadow() {
+		return shadow;
+	}
+
+	public void setShadow(boolean shadow) {
+		this.shadow = shadow;
+	}
+
+	
     
     
 }

@@ -117,6 +117,7 @@ public class Parser {
 				case "ambient":
 					ambientColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
 							Double.parseDouble(parts[3]));
+					System.out.println("ambient: "+ambientColors.getTrip().toString());
 					break;
 				case "diffuse":
 					diffuseColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
@@ -165,6 +166,7 @@ public class Parser {
 				case "sphere":
 					spheres.add(new Sphere(new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
 							Double.parseDouble(parts[3])), ambientColors, Double.parseDouble(parts[4])));
+					System.out.println("sphere: "+spheres.get(spheres.size()-1).toString()+" ambient: "+ambientColors.getTrip().toString());
 					break;
 				case "plane":
 					planes.add(new Plane(
@@ -175,7 +177,7 @@ public class Parser {
 							ambientColors));
 					break;
 				case "shadow":
-					if (parts[1] == "true") {
+					if (parts[1].equals("true")) {
 						this.shadow=true;
 					}
 				default:
@@ -191,6 +193,7 @@ public class Parser {
 		sceneBuild.setImageWidth(width);
 		sceneBuild.setOutputFileName(pictureFileName);
 		sceneBuild.setCamera(camera);
+		sceneBuild.setShadow(shadow);
 		for (int i = 0; i < lights.size(); i++) {
 			sceneBuild.addLight(lights.get(i));
 		}
