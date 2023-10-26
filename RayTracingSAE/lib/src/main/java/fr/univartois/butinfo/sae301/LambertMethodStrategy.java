@@ -1,18 +1,13 @@
 package fr.univartois.butinfo.sae301;
+import java.awt.Color;
 
 public class LambertMethodStrategy implements IColorStrategy {
 	
+	
 	@Override
-    public Color calculateColor(Vector normal, Light light, Point intersectionPoint) {
-        Vector toLight = light.getPosition().subtraction(intersectionPoint);
-        Vector lightDirection = toLight.normalize();
-        double cosTheta = normal.normalize().scalarProduct(lightDirection);
-
-        if (cosTheta > 0) {
-            return light.getColor().multiply(cosTheta);
-        } else {
-            return Color.BLACK;
-        }
-    }
+	public Color calculateColor(Vector normal, Light[] light, Point intersectionPoint, ISceneObject object) {
+		Color color = null;
+		return color;
+	}
 
 }

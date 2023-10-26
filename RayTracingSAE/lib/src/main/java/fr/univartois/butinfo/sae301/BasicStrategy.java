@@ -5,22 +5,13 @@ import java.awt.Color;
 public class BasicStrategy implements IColorStrategy{
 
 	@Override
-	public Color calculateColor(Vector normal, Light light, Point intersectionPoint) {
-		ISceneObject sphere = sceneObjects.get(0);
+	public Color calculateColor(Vector normal, Light[] light, Point intersectionPoint, ISceneObject object) {
+		
+			float r = (float) (object.getColor().getTrip().getX());
+			float g = (float) (object.getColor().getTrip().getY());
+			float b = (float) (object.getColor().getTrip().getZ());
 
-        float r = (float) (sphere.getColor().getTrip().getX());
-        float g = (float) (sphere.getColor().getTrip().getY());
-        float b = (float) (sphere.getColor().getTrip().getZ());
-
-        Color color = new Color(r,g,b);
-
-        if (intersection != null) {
-            image.setRGB(i, j, color.getRGB());
-        }
-
-		else {
-			image.setRGB(i, j, 0);
-		}
+			Color color = new Color(r, g, b);
+			return color;
 	}
-
 }
