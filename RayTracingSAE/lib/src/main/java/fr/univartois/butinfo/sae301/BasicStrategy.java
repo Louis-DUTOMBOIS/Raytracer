@@ -1,11 +1,11 @@
 package fr.univartois.butinfo.sae301;
 
 import java.awt.Color;
+import java.util.List;
 
 public class BasicStrategy implements IColorStrategy{
 
-	@Override
-	public Color calculateColor(Vector normal, Light[] light, Point intersectionPoint, ISceneObject object) {
+	public static Color calculateColor(Vector normal, List<Light> light, Point intersectionPoint, ISceneObject object) {
 		
 			float r = (float) (object.getColor().getTrip().getX());
 			float g = (float) (object.getColor().getTrip().getY());
