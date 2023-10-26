@@ -1,6 +1,12 @@
 package fr.univartois.butinfo.sae301;
 
 /**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
+/**
  * Represents a point light source in a 3D scene.
  */
 public class PointLight extends Light {
@@ -27,9 +33,14 @@ public class PointLight extends Light {
         return LightType.POINT;
     }
 
-	public Point getPosition() {
-		return position;
-	}
+    /**
+     * Returns the position (point) associated with the object.
+     *
+     * @return The position (point) of the object.
+     */
+    public Point getPosition() {
+        return position;
+    }
     
     
 }
