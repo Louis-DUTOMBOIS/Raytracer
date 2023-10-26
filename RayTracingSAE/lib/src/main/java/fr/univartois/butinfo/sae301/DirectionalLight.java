@@ -1,7 +1,11 @@
 package fr.univartois.butinfo.sae301;
 
 /**
+ * 
  * Represents a directional light source in a 3D scene.
+ * 
+ * @author Theo, Louis, Hugo, Alex
+ *
  */
 public class DirectionalLight extends Light {
 	
