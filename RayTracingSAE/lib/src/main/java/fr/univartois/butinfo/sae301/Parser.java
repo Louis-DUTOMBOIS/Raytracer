@@ -8,21 +8,21 @@ import java.util.Scanner;
 
 public class Parser {
 
-	int width = 0;
-	int height = 0;
-	int maxverts = 0;
-	String pictureFileName = "output.png";
-	Camera camera= null;
-	Color ambientColors = null;
-	Color diffuseColors = null;
-	Color specularColors = null;
-	int shininessValues = 0;
-	List<Light> lights = new ArrayList<>();
-	List<PointLight> pointsLight = new ArrayList<>();
-	List<Point> points = new ArrayList<>();
-	List<Triangle> triangles = new ArrayList<>();
-	List<Sphere> spheres = new ArrayList<>();
-	List<Plane> planes = new ArrayList<>();
+	private int width = 0;
+	private int height = 0;
+	private int maxverts = 0;
+	private String pictureFileName = "output.png";
+	private Camera camera= null;
+	private Color ambientColors = null;
+	private Color diffuseColors = null;
+	private Color specularColors = null;
+	private int shininessValues = 0;
+	private List<Light> lights = new ArrayList<>();
+	private List<PointLight> pointsLight = new ArrayList<>();
+	private List<Point> points = new ArrayList<>();
+	private List<Triangle> triangles = new ArrayList<>();
+	private List<Sphere> spheres = new ArrayList<>();
+	private List<Plane> planes = new ArrayList<>();
 
 	public int getMaxverts() {
 		return maxverts;
@@ -109,7 +109,7 @@ public class Parser {
 									Double.parseDouble(parts[3])),
 							new Point(Double.parseDouble(parts[4]), Double.parseDouble(parts[5]),
 									Double.parseDouble(parts[6])),
-							new Point(Double.parseDouble(parts[7]), Double.parseDouble(parts[8]),
+							new Vector(Double.parseDouble(parts[7]), Double.parseDouble(parts[8]),
 									Double.parseDouble(parts[9])),
 							Integer.parseInt(parts[10]));
 					break;
@@ -156,21 +156,22 @@ public class Parser {
 						int values3 = Integer.parseInt(parts[3]);
 						if (values1 >= 0 && values1 < points.size() && values2 >= 0 && values2 < points.size()
 								&& values3 >= 0 && values3 < points.size()) {
-							triangles.add(new Triangle(diffuseColors, points.get(values1), points.get(values2),
+							triangles.add(new Triangle(ambientColors, points.get(values1), points.get(values2),
 									points.get(values3)));
 						}
 					}
 					break;
 				case "sphere":
 					spheres.add(new Sphere(new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-							Double.parseDouble(parts[3])), diffuseColors, Double.parseDouble(parts[4])));
+							Double.parseDouble(parts[3])), ambientColors, Double.parseDouble(parts[4])));
 					break;
 				case "plane":
 					planes.add(new Plane(
 							new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
 									Double.parseDouble(parts[3])),
 							new Vector(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-									Double.parseDouble(parts[3]))));
+									Double.parseDouble(parts[3])),
+							ambientColors));
 					break;
 				default:
 					break;
@@ -194,10 +195,10 @@ public class Parser {
 		for (int i = 0; i < planes.size(); i++) {
 			sceneBuild.addSceneObject(planes.get(i));
 		}
-		for (int i = 0; i < planes.size(); i++) {
+		for (int i = 0; i < spheres.size(); i++) {
 			sceneBuild.addSceneObject(spheres.get(i));
 		}
-		for (int i = 0; i < planes.size(); i++) {
+		for (int i = 0; i < triangles.size(); i++) {
 			sceneBuild.addSceneObject(triangles.get(i));
 		}
 		return sceneBuild.build();

@@ -75,11 +75,11 @@ public class Vector {
     /**
      * Calculates the scalar product (dot product) between this vector and a triplet.
      *
-     * @param t The Triplet for calculating the scalar product.
+     * @param w The Triplet for calculating the scalar product.
      * @return The scalar product between the vector and the triplet.
      */
-    public double scalarProduct(Triplet t) {
-        return trip.scalarProduct(t);
+    public double scalarProduct(Vector w) {
+        return trip.scalarProduct(w.getTrip());
     }
 
     /**
@@ -111,4 +111,11 @@ public class Vector {
         Triplet result = trip.normalize();
         return new Vector(result.getX(), result.getY(), result.getZ());
     }
+
+	@Override
+	public String toString() {
+		return "Vector [trip=" + trip + "]";
+	}
+    
+    
 }

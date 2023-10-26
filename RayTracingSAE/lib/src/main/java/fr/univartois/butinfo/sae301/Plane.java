@@ -3,6 +3,7 @@ package fr.univartois.butinfo.sae301;
 public class Plane implements ISceneObject{
 	private Point pos;
 	private Vector normal;
+	private Color color;
 	/*
      * Creates a new plane with the given vector, color and radius.
      *
@@ -11,9 +12,10 @@ public class Plane implements ISceneObject{
      * @param width The width of the plane.
      * @param height The height of the plane.
      */
-	public Plane (Point pos, Vector normal) {
+	public Plane (Point pos, Vector normal, Color color) {
 		this.pos = pos;
 		this.normal = normal;
+		this.color = color;
 	}
 	@Override
 	public Point getOrigin() {
@@ -32,13 +34,21 @@ public class Plane implements ISceneObject{
 		this.normal = normal;
 	}
 	
-	/**
-     * Throws an UnsupportedOperationException.
-     *
-     * @throws UnsupportedOperationException This method is not supported for triangles.
-     */
-    public double getDistanceToIntersection(Point p, Vector d) {
-        throw new UnsupportedOperationException("This method is not supported for planes.");
-    }
+	@Override
+	public double intersect(Point p, Vector d) {
+		if ((d.scalarProduct(normal)) == 0) {
+			return -1;
+		}
+		else {
+			double t = (normal.scalarProduct(pos.subtraction(p))) / (d.scalarProduct(normal));
+		return t;
+		}
+		
+	}
+	@Override
+	public Color getColor() {
+		// TODO Auto-generated method stub
+		return color;
+	}
 
 }
