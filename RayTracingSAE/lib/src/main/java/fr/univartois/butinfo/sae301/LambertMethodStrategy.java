@@ -3,6 +3,12 @@ package fr.univartois.butinfo.sae301;
 import java.awt.Color;
 import java.util.List;
 
+/**
+ * The `LambertMethodStrategy` class implements the `IColorStrategy` interface and defines a Lambertian reflection model
+ * for calculating the color of a scene object. It takes into account the interaction of light sources with the object.
+ *
+ * @author Theo, Louis, Hugo, Alex
+ */
 public class LambertMethodStrategy implements IColorStrategy {
 	
 	public static fr.univartois.butinfo.sae301.Color CalculateLd(Vector normal, List<Light> lights, Point intersectionPoint) {

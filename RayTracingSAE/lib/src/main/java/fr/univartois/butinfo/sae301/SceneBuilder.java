@@ -4,15 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
+/**
  * A builder class for creating Scene objects in a 3D scene.
  * This builder allows for step-by-step construction of Scene objects with various properties.
  */
 public class SceneBuilder {
 
+	//existing attributes
+	
     private int imageWidth;
     private int imageHeight;
     private String outputFileName;
     private Camera camera;
+    private IShadowStrategy shadow;
     private List<Light> lights = new ArrayList<Light>();
     private List<ISceneObject> sceneObjects = new ArrayList<ISceneObject>();
 
@@ -152,7 +161,15 @@ public class SceneBuilder {
         return sceneObjects;
     }
 
-    /**
+    public IShadowStrategy getShadow() {
+		return shadow;
+	}
+
+	public void setShadow(IShadowStrategy shadow) {
+		this.shadow = shadow;
+	}
+
+	/**
      * Builds and returns a Scene object with the specified properties.
      *
      * @return A Scene object constructed with the settings provided to the builder.

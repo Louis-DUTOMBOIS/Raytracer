@@ -3,7 +3,14 @@ package fr.univartois.butinfo.sae301;
 import java.awt.Color;
 import java.util.List;
 
-public class BasicStrategy implements IColorStrategy{
+/**
+ * This class, BasicStrategy, implements the IColorStrategy interface and defines a color calculation strategy for a scene object.
+ * The basic color strategy simply returns the object's color without any modification.
+ * 
+ * @author Theo, Louis, Hugo, Alex
+ *
+ */
+public class BasicStrategy implements IColorStrategy {
 
 	public static fr.univartois.butinfo.sae301.Color calculateColor(Vector normal, List<Light> light, Point intersectionPoint, ISceneObject object) {
 		

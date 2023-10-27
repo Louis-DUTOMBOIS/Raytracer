@@ -1,12 +1,21 @@
 package fr.univartois.butinfo.sae301;
 
 /**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
+/**
  * A class representing a three-dimensional triplet (x, y, z) for vector and scalar operations.
  * This class provides methods for vector operations such as addition, subtraction,
  * scalar multiplication, scalar product, vector product, Schur product, length calculation,
  * and normalization.
  */
 public class Triplet {
+	
+	//existing attributes
+	
     private double x;
     private double y;
     private double z;
@@ -130,9 +139,14 @@ public class Triplet {
         return new Triplet(len * x, len * y, len * z);
     }
 
-	@Override
-	public String toString() {
-		return "Triplet [x=" + x + ", y=" + y + ", z=" + z + "]";
-	}
+    /**
+     * Returns a string representation of the Triplet object, including its x, y, and z values.
+     *
+     * @return A string containing information about the Triplet object, including its x, y, and z values.
+     */
+    @Override
+    public String toString() {
+        return "Triplet [x=" + x + ", y=" + y + ", z=" + z + "]";
+    }
     
 }

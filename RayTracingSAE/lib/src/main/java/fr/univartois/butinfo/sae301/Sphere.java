@@ -1,5 +1,11 @@
 package fr.univartois.butinfo.sae301;
 
+/**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
 /*
  * Represents a sphere object in a 3D scene.
  */
@@ -7,6 +13,9 @@ public class Sphere implements ISceneObject{
 	/*
      * The radius of the sphere.
      */
+	
+	//existing attributes
+	
 	private Point pos;
 	private double radius;
 	private Color color;
@@ -24,33 +33,68 @@ public class Sphere implements ISceneObject{
 		this.color = color;
 	}
 
+	/**
+	 * Returns the origin point of the sphere.
+	 *
+	 * @return The origin point of the sphere.
+	 */
 	@Override
 	public Point getOrigin() {
-		return pos;
+	    return pos;
 	}
 
+	/**
+	 * Returns the position point of the sphere.
+	 *
+	 * @return The position point of the sphere.
+	 */
 	public Point getPos() {
-		return pos;
+	    return pos;
 	}
 
+	/**
+	 * Sets the position point of the sphere to the specified point.
+	 *
+	 * @param pos The new position point for the sphere.
+	 */
 	public void setPos(Point pos) {
-		this.pos = pos;
+	    this.pos = pos;
 	}
 
+	/**
+	 * Returns the radius of the sphere.
+	 *
+	 * @return The radius of the sphere.
+	 */
 	public double getRadius() {
-		return radius;
+	    return radius;
 	}
 
+	/**
+	 * Sets the radius of the sphere to the specified value.
+	 *
+	 * @param radius The new radius for the sphere.
+	 */
 	public void setRadius(double radius) {
-		this.radius = radius;
+	    this.radius = radius;
 	}
 
+	/**
+	 * Returns the color of the sphere.
+	 *
+	 * @return The color of the sphere.
+	 */
 	public Color getColor() {
-		return color;
+	    return color;
 	}
 
+	/**
+	 * Sets the color of the sphere to the specified color.
+	 *
+	 * @param color The new color for the sphere.
+	 */
 	public void setColor(Color color) {
-		this.color = color;
+	    this.color = color;
 	}
 	
 	/**
@@ -89,9 +133,15 @@ public class Sphere implements ISceneObject{
 	    }
 	}
 
+	/**
+	 * Returns a string representation of the Sphere object, including its position, radius, and color.
+	 *
+	 * @return A string containing information about the Sphere object, including its position, radius,
+	 * and color.
+	 */
 	@Override
 	public String toString() {
-		return "Sphere [pos=" + pos + ", radius=" + radius + ", color=" + color + "]";
+	    return "Sphere [pos=" + pos + ", radius=" + radius + ", color=" + color + "]";
 	}
 	
 	
