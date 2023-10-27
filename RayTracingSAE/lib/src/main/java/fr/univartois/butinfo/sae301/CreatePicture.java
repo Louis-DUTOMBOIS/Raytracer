@@ -127,4 +127,50 @@ public class CreatePicture {
     }
 
 
+				Point intersection;
+				if (sceneObjects != null) {
+					for (int element = 0; element < sceneObjects.size(); element++) {
+						ISceneObject s = sceneObjects.get(element);
+						t = s.intersect(lookFrom, d);
+						if (t != -1) {
+							intersection = d.add(lookFrom).multiplicationScailary(t);
+							if (lights.isEmpty()) {
+								fr.univartois.butinfo.sae301.Color color = BasicStrategy.calculateColor(d, lights, intersection, s);
+								
+								float r = (float) color.getTrip().getX();
+								float g = (float) color.getTrip().getY();
+								float b = (float) color.getTrip().getZ();
+
+								Color color1 = new Color(r, g, b);
+								image.setRGB(i, j, color1.getRGB());
+							} else {
+								if (s instanceof Sphere) {
+									
+									Point p = d.multiplicationScailary(t).add(lookFrom);
+									Vector n = (p.subtraction(s.getOrigin())).normalize();
+									Color color = LambertMethodStrategy.calculateColor(n, lights, p, s);
+									
+									image.setRGB(i, j, color.getRGB());
+								}
+				
+							}
+
+						}
+						}
+					}else {
+							image.setRGB(i, j, 0);
+
+				}
+			}
+		}
+
+		try {
+			File outputImage = new File(name);
+			ImageIO.write(image, "png", outputImage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return image;
+
+	}
 }
