@@ -1,6 +1,12 @@
 package fr.univartois.butinfo.sae301;
 
 /**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
+/**
  * A class representing a three-dimensional vector defined by its coordinates (x, y, z).
  * This class provides methods for vector operations, including addition, subtraction,
  * scalar multiplication, scalar product, vector product, length calculation, and normalization.
@@ -112,10 +118,15 @@ public class Vector {
         return new Vector(result.getX(), result.getY(), result.getZ());
     }
 
-	@Override
-	public String toString() {
-		return "Vector [trip=" + trip + "]";
-	}
+    /**
+     * Returns a string representation of the Vector object, including its trip (components).
+     *
+     * @return A string containing information about the Vector object, including its components.
+     */
+    @Override
+    public String toString() {
+        return "Vector [trip=" + trip + "]";
+    }
     
     
 }

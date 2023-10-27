@@ -1,7 +1,11 @@
 package fr.univartois.butinfo.sae301;
 
 /**
+ * 
  * Represents a camera in a 3D scene. The camera defines the viewpoint and orientation for rendering the scene.
+ * 
+ * @author Theo, Louis, Hugo, Alex
+ * 
  */
 public class Camera {
     private Point lookFrom; // The camera's position (x, y, z)

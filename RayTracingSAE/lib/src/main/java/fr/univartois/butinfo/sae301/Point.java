@@ -1,9 +1,18 @@
 package fr.univartois.butinfo.sae301;
 
 /**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
+/**
  * Represents a point in three-dimensional space, defined by its coordinates (x, y, z).
  */
 public class Point {
+	
+	//existing attributes
+	
     private Triplet trip;
     private Color color;
 
@@ -61,9 +70,14 @@ public class Point {
         return new Point(result.getX(), result.getY(), result.getZ(), color);
     }
 
-	public Color getColor() {
-		return color;
-	}
+    /**
+     * Returns the color of the object.
+     *
+     * @return The color of the object.
+     */
+    public Color getColor() {
+        return color;
+    }
     
     
 }

@@ -4,13 +4,23 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
+/**
  * Represents a 3D scene with information about image dimensions, camera, lights, and scene objects.
  */
 public class Scene {
+	
+	//existing attributes
+	
     private int imageWidth;
     private int imageHeight;
     private String outputFileName;
     private Camera camera;
+    private boolean shadow;
     private List<Light> lights;
     private List<ISceneObject> sceneObjects;
 
@@ -21,6 +31,7 @@ public class Scene {
     	this.camera = sceneBuilder.getCamera();
     	this.lights = sceneBuilder.getLights();
     	this.sceneObjects = sceneBuilder.getSceneObjects();
+    	this.shadow = sceneBuilder.isShadow();
     }
     
     /**
@@ -196,12 +207,27 @@ public class Scene {
         this.sceneObjects.add(sceneObject);
     }
 
-	@Override
-	public String toString() {
-		return "Scene [imageWidth=" + imageWidth + ", imageHeight=" + imageHeight + ", outputFileName=" + outputFileName
-				+ ", camera=" + camera + ", lights=" + lights + ", sceneObjects=" + sceneObjects + "]";
+    /**
+     * Returns a string representation of the Scene object, including its attributes.
+     *
+     * @return A string containing information about the Scene object, including image dimensions,
+     * output file name, camera details, lights, and scene objects.
+     */
+    @Override
+    public String toString() {
+        return "Scene [imageWidth=" + imageWidth + ", imageHeight=" + imageHeight + ", outputFileName=" + outputFileName
+                + ", camera=" + camera + ", lights=" + lights + ", sceneObjects=" + sceneObjects + "]";
+    }
+
+	public boolean isShadow() {
+		return shadow;
 	}
 
+	public void setShadow(boolean shadow) {
+		this.shadow = shadow;
+	}
+
+	
     
     
 }
