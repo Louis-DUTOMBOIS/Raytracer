@@ -21,7 +21,7 @@ public class SceneBuilder {
     private int imageHeight;
     private String outputFileName;
     private Camera camera;
-    private boolean shadow;
+    private IShadowStrategy shadow;
     private List<Light> lights = new ArrayList<Light>();
     private List<ISceneObject> sceneObjects = new ArrayList<ISceneObject>();
 
@@ -161,11 +161,11 @@ public class SceneBuilder {
         return sceneObjects;
     }
 
-    public boolean isShadow() {
+    public IShadowStrategy getShadow() {
 		return shadow;
 	}
 
-	public void setShadow(boolean shadow) {
+	public void setShadow(IShadowStrategy shadow) {
 		this.shadow = shadow;
 	}
 

@@ -9,65 +9,65 @@ import java.awt.Color;
 import javax.imageio.ImageIO;
 
 public class CreatePicture {
-	private int imgWidth;
-	private int imgHeight;
-	private Point lookAt;
-	private Point lookFrom;
-	private double fov;
-	private Vector up;
-	private List<ISceneObject> sceneObjects = new ArrayList<>();
-	private String name;
-	private List<Light> lights;
+    private int imgWidth;
+    private int imgHeight;
+    private Point lookAt;
+    private Point lookFrom;
+    private double fov;
+    private Vector up;
+    private List<ISceneObject> sceneObjects = new ArrayList<>();
+    private String name;
+    private List<Light> lights;
+    private IShadowStrategy shadowStrategy;
 
-	private double fovr;
-	private double realHeight;
-	private double pixelHeight;
-	private double realWidth;
-	private double pixelWidth;
+    private double fovr;
+    private double realHeight;
+    private double pixelHeight;
+    private double realWidth;
+    private double pixelWidth;
 
-	public CreatePicture(Scene scene) {
-		this.imgWidth = scene.getImageWidth();
-		this.imgHeight = scene.getImageHeight();
-		this.lookAt = scene.getCamera().getLookAt();
-		this.lookFrom = scene.getCamera().getLookFrom();
-		this.fov = scene.getCamera().getFov();
-		this.up = scene.getCamera().getUp();
-		this.sceneObjects = scene.getSceneObjects();
-		this.name = scene.getOutputFileName();
-		this.lights = scene.getLights();
-		fovr = (fov * Math.PI) / 180.0;
-		realHeight = 2.0 * Math.tan(fovr / 2);
-		pixelHeight = realHeight / imgHeight;
-		realWidth = imgWidth * pixelHeight;
-		pixelWidth = realWidth / imgWidth;
-	}
+    public CreatePicture(Scene scene) {
+        this.imgWidth = scene.getImageWidth();
+        this.imgHeight = scene.getImageHeight();
+        this.lookAt = scene.getCamera().getLookAt();
+        this.lookFrom = scene.getCamera().getLookFrom();
+        this.fov = scene.getCamera().getFov();
+        this.up = scene.getCamera().getUp();
+        this.sceneObjects = scene.getSceneObjects();
+        this.name = scene.getOutputFileName();
+        this.lights = scene.getLights();
+        this.shadowStrategy = scene.getShadow(); // Set the shadow strategy
+        fovr = (fov * Math.PI) / 180.0;
+        realHeight = 2.0 * Math.tan(fovr / 2);
+        pixelHeight = realHeight / imgHeight;
+        realWidth = imgWidth * pixelHeight;
+        pixelWidth = realWidth / imgWidth;
+    }
 
-	public double littleA(int i) {
-		return (-realWidth / 2) + (i + 0.5) * pixelWidth;
-	}
+    public double littleA(int i) {
+        return (-realWidth / 2) + (i + 0.5) * pixelWidth;
+    }
 
-	public double littleB(int j) {
-		return (realHeight / 2) - (j + 0.5) * pixelHeight;
-	}
+    public double littleB(int j) {
+        return (realHeight / 2) - (j + 0.5) * pixelHeight;
+    }
 
-	public Vector calcul(int i, int j, Vector up) {
+    public Vector calcul(int i, int j, Vector up) {
+        Vector w = lookFrom.subtraction(lookAt);
+        Vector normW = w.normalize();
 
-		Vector w = lookFrom.subtraction(lookAt);
-		Vector normW = w.normalize();
+        Vector u = up.vectorProduct(normW.getTrip());
+        Vector normU = u.normalize();
 
-		Vector u = up.vectorProduct(normW.getTrip());
-		Vector normU = u.normalize();
+        Vector v = normW.vectorProduct(normU.getTrip());
+        Vector norm = v.normalize();
 
-		Vector v = normW.vectorProduct(normU.getTrip());
-		Vector norm = v.normalize();
+        Vector d = ((normU.multiplicationScailary(littleA(i))).add(norm.multiplicationScailary(littleB(j))))
+                .subtraction(normW);
+        return d.normalize();
+    }
 
-		Vector d = ((normU.multiplicationScailary(littleA(i))).add(norm.multiplicationScailary(littleB(j))))
-				.subtraction(normW);
-		return d.normalize();
-
-	}
-
-	public BufferedImage getMyImage() {
+    public BufferedImage getMyImage() {
 
 		BufferedImage image = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < imgWidth; i++) {
@@ -87,15 +87,24 @@ public class CreatePicture {
 							ISceneObject object = sceneObjects.get(element);
 							if (lights.isEmpty()) {
 								Color color = BasicStrategy.calculateColor(d, lights, intersection, s);
+								
 								image.setRGB(i, j, color.getRGB());
 							} else {
 								if (sceneObjects instanceof Sphere) {
-									System.out.println("hey");
-									Point p = d.multiplicationScailary(t).add(s.getOrigin());
-									Vector n = (intersection.subtraction(s.getOrigin())).normalize();
-									Color color = LambertMethodStrategy.calculateColor(n, lights, intersection, s);
-									System.out.println(color);
-									image.setRGB(i, j, color.getRGB());
+									System.out.println("oui");
+									if (shadowStrategy instanceof ShadowStrategy && shadowStrategy.isShadowed(intersection, lights, sceneObjects)) {
+										System.out.println("non");
+										Color color = new Color(1,1,1);
+										
+										image.setRGB(i, j, color.getRGB());
+									} else {
+										Point p = d.multiplicationScailary(t).add(s.getOrigin());
+										Vector n = (intersection.subtraction(s.getOrigin())).normalize();
+										Color color = LambertMethodStrategy.calculateColor(n, lights, intersection, s);
+										System.out.println(color);
+										image.setRGB(i, j, color.getRGB());
+									}
+									
 								}
 				
 							}
@@ -118,4 +127,6 @@ public class CreatePicture {
 		return image;
 
 	}
+
+
 }

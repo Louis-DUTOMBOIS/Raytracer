@@ -37,7 +37,7 @@ public class Parser {
 	private List<Triangle> triangles = new ArrayList<>();
 	private List<Sphere> spheres = new ArrayList<>();
 	private List<Plane> planes = new ArrayList<>();
-	private boolean shadow = false;
+	private IShadowStrategy shadow;
 
 	/**
      * The width of the 3D scene.
@@ -276,7 +276,10 @@ public class Parser {
 					break;
 				case "shadow":
 					if (parts[1].equals("true")) {
-						this.shadow=true;
+						this.shadow= new ShadowStrategy();
+					}
+					if (parts[1].equals("false")) {
+						this.shadow= new NoShadowStrategy();
 					}
 				default:
 					break;
