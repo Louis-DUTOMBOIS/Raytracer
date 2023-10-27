@@ -6,7 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
+/**
+ * The Parser class is responsible for parsing a text-format scene file and
+ * creating a 3D scene based on the extracted information.
+ */
+
 public class Parser {
+	
+	// existing attributes
 
 	private int width = 0;
 	private int height = 0;
@@ -24,67 +38,152 @@ public class Parser {
 	private List<Sphere> spheres = new ArrayList<>();
 	private List<Plane> planes = new ArrayList<>();
 
-	public int getMaxverts() {
-		return maxverts;
-	}
+	/**
+     * The width of the 3D scene.
+     *
+     * @return The width of the scene.
+     */
+    public int getWidth() {
+        return width;
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    /**
+     * The height of the 3D scene.
+     *
+     * @return The height of the scene.
+     */
+    public int getHeight() {
+        return height;
+    }
 
-	public int getHeight() {
-		return height;
-	}
+    /**
+     * The maximum number of vertices in the scene.
+     *
+     * @return The maximum number of vertices.
+     */
+    public int getMaxverts() {
+        return maxverts;
+    }
 
-	public String getPictureFileName() {
-		return pictureFileName;
-	}
+    /**
+     * The filename for the output picture of the scene.
+     *
+     * @return The output picture filename.
+     */
+    public String getPictureFileName() {
+        return pictureFileName;
+    }
 
-	public Camera getCamera() {
-		return camera;
-	}
+    /**
+     * The camera used in the scene.
+     *
+     * @return The camera object.
+     */
+    public Camera getCamera() {
+        return camera;
+    }
 
-	public Color getAmbientColors() {
-		return ambientColors = new Color(0, 0, 0);
-	}
+    /**
+     * The ambient color of the scene.
+     *
+     * @return The ambient color.
+     */
+    public Color getAmbientColors() {
+        return ambientColors = new Color(0, 0, 0);
+    }
 
-	public Color getDiffuseColors() {
-		return diffuseColors;
-	}
+    /**
+     * The diffuse color of the scene.
+     *
+     * @return The diffuse color.
+     */
+    public Color getDiffuseColors() {
+        return diffuseColors;
+    }
 
-	public Color getSpecularColors() {
-		return specularColors;
-	}
+    /**
+     * The specular color of the scene.
+     *
+     * @return The specular color.
+     */
+    public Color getSpecularColors() {
+        return specularColors;
+    }
 
-	public int getShininessValues() {
-		return shininessValues;
-	}
+    /**
+     * The shininess value of the scene.
+     *
+     * @return The shininess value.
+     */
+    public int getShininessValues() {
+        return shininessValues;
+    }
 
-	public List<Light> getLights() {
-		return lights;
-	}
+    /**
+     * The list of lights in the scene.
+     *
+     * @return A list of lights.
+     */
+    public List<Light> getLights() {
+        return lights;
+    }
 
-	public List<PointLight> getPointsLight() {
-		return pointsLight;
-	}
+    /**
+     * The list of point lights in the scene.
+     *
+     * @return A list of point lights.
+     */
+    public List<PointLight> getPointsLight() {
+        return pointsLight;
+    }
 
-	public List<Point> getPoints() {
-		return points;
-	}
+    /**
+     * The list of points in the scene.
+     *
+     * @return A list of points.
+     */
+    public List<Point> getPoints() {
+        return points;
+    }
 
-	public List<Triangle> getTriangles() {
-		return triangles;
-	}
+    /**
+     * The list of triangles in the scene.
+     *
+     * @return A list of triangles.
+     */
+    public List<Triangle> getTriangles() {
+        return triangles;
+    }
 
-	public List<Sphere> getSpheres() {
-		return spheres;
-	}
+    /**
+     * The list of spheres in the scene.
+     *
+     * @return A list of spheres.
+     */
+    public List<Sphere> getSpheres() {
+        return spheres;
+    }
 
-	public List<Plane> getPlanes() {
-		return planes;
-	}
+    /**
+     * The list of planes in the scene.
+     *
+     * @return A list of planes.
+     */
+    public List<Plane> getPlanes() {
+        return planes;
+    }
+	
+	/**
+     * Parses a text-format scene file and constructs a 3D scene based on its content.
+     *
+     * @param text The text-format scene file to be parsed.
+     * @throws FileNotFoundException If the specified file is not found.
+     */
 
 	public void read(File text) throws FileNotFoundException {
+		
+		//(code for reading and parsing the file)
+		
 		Scanner scanner = new Scanner(text);
 
 		while (scanner.hasNextLine()) {
@@ -181,7 +280,16 @@ public class Parser {
 		}
 	}
 
+	/**
+     * Constructs an instance of the Scene class using the information extracted from the scene file.
+     *
+     * @return An instance of the Scene class representing the 3D scene.
+     */
+	
 	public Scene constructScene() {
+		
+		//(code for building the scene)
+		
 		SceneBuilder sceneBuild = SceneBuilder.newInstance();
 		sceneBuild.setImageHeight(height);
 		sceneBuild.setImageWidth(width);

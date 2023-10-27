@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
+/**
  * A builder class for creating Scene objects in a 3D scene.
  * This builder allows for step-by-step construction of Scene objects with various properties.
  */
 public class SceneBuilder {
 
+	//existing attributes
+	
     private int imageWidth;
     private int imageHeight;
     private String outputFileName;
