@@ -11,34 +11,61 @@ import java.util.List;
  */
 public class LambertMethodStrategy implements IColorStrategy {
 
-    /**
-     * Calculates the color of the object based on the Lambertian reflection model, taking into account the normal vector,
-     * lights in the scene, the intersection point, and the object itself.
-     *
-     * @param normal           The normal vector of the object at the intersection point.
-     * @param lights           The list of lights in the scene.
-     * @param intersectionPoint The intersection point between a ray and the object.
-     * @param object           The scene object for which the color should be calculated.
-     * @return The calculated color for the object using the Lambertian reflection model.
-     */
-    public static Color calculateColor(Vector normal, List<Light> lights, Point intersectionPoint, ISceneObject object) {
-        java.awt.Color color = new Color(0, 0, 0);
+	public static Color calculateColor(Vector normal, List<Light> lights, Point intersectionPoint,
+			ISceneObject object) {
+		float r;
+		float g;
+		float b;
+		fr.univartois.butinfo.sae301.Color colordiff = BasicStrategy.calculateColor(normal, lights, intersectionPoint, object);
+		Color color = new Color(0);
+		for (Light light : lights) {
+			if (light instanceof DirectionalLight) {
+				Vector ldir = ((DirectionalLight) light).getDirection();
+				double tmp = Math.max(ldir.scalarProduct(normal), 0);
+				fr.univartois.butinfo.sae301.Color color2 = (light.getColor().multiplicationScailary(tmp));
+				color2 = colordiff.schurProduct(color2).add(intersectionPoint.getColor());
 
-        for (Light light : lights) {
-            if (light instanceof DirectionalLight) {
-                Vector ldir = ((DirectionalLight) light).getDirection();
-                double tmp = Math.max(normal.scalarProduct(ldir), 0);
-                fr.univartois.butinfo.sae301.Color color2 = (light.getColor().multiplicationScailary(tmp));
-                color2 = object.getColor().schurProduct(color2).schurProduct(intersectionPoint.getColor());
-                color = new Color((float) (color2.getTrip().getX()), (float) (color2.getTrip().getY()), (float) (color2.getTrip().getZ()));
-            } else if (light instanceof PointLight) {
-                Vector ldir = ((PointLight) light).position.subtraction(intersectionPoint).normalize();
-                double tmp = Math.max(normal.scalarProduct(ldir), 0);
-                fr.univartois.butinfo.sae301.Color color2 = (light.getColor().multiplicationScailary(tmp));
-                color2 = object.getColor().schurProduct(color2).schurProduct(intersectionPoint.getColor());
-                color = new Color((float) (color2.getTrip().getX()), (float) (color2.getTrip().getY()), (float) (color2.getTrip().getZ()));
-            }
-        }
-        return color;
-    }
+				if (color2.getTrip().getX() <= 1) {
+					r = (float) color2.getTrip().getX();
+				} else
+					r = (float) 1.0;
+
+				if (color2.getTrip().getY() <= 1) {
+					g = (float) color2.getTrip().getY();
+				} else
+					g = (float) 1.0;
+
+				if (color2.getTrip().getZ() <= 1) {
+					b = (float) color2.getTrip().getZ();
+				} else
+					b = (float) 1.0;
+
+				color = new Color(r,g,b);
+			} else if (light instanceof PointLight) {
+				Vector ldir = ((PointLight) light).position.subtraction(intersectionPoint).normalize();
+				double tmp = Math.max(normal.scalarProduct(ldir), 0);
+				fr.univartois.butinfo.sae301.Color color2 = (light.getColor().multiplicationScailary(tmp));
+				color2 = colordiff.schurProduct(color2).add(intersectionPoint.getColor());
+				
+				if (color2.getTrip().getX() <= 1) {
+					r = (float) color2.getTrip().getX();
+				} else
+					r = (float) 1.0;
+
+				if (color2.getTrip().getY() <= 1) {
+					g = (float) color2.getTrip().getY();
+				} else
+					g = (float) 1.0;
+
+				if (color2.getTrip().getZ() <= 1) {
+					b = (float) color2.getTrip().getZ();
+				} else
+					b = (float) 1.0;
+
+				color = new Color(r,g,b);
+			}
+		}
+		return color;
+	}
+
 }

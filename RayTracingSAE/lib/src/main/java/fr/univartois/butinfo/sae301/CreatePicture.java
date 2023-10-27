@@ -68,65 +68,63 @@ public class CreatePicture {
     }
 
     public BufferedImage getMyImage() {
+    	int shadow = 0;
+    	int noShadow = 0;
+    	int reste = 0;
+        BufferedImage image = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < imgWidth; i++) {
+            for (int j = 0; j < imgHeight; j++) {
+                Vector d = calcul(i, j, up);
+                Point intersection = null;
+                ISceneObject closestObject = null;
+                double closestT = Double.MAX_VALUE;
 
-		BufferedImage image = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_RGB);
-		for (int i = 0; i < imgWidth; i++) {
-			for (int j = 0; j < imgHeight; j++) {
+                if (sceneObjects != null) {
+                    for (ISceneObject s : sceneObjects) {
+                        double t = s.intersect(lookFrom, d);
+                        if (t > 0 && t < closestT) {
+                            closestT = t;
+                            closestObject = s;
+                            intersection = d.add(lookFrom).multiplicationScailary(t);
+                        }
+                    }
+                }
 
-				Vector d = calcul(i, j, up);
-				double t = 0;
+                if (closestObject != null) {
+                    if (lights.isEmpty()) {
+                        fr.univartois.butinfo.sae301.Color color = BasicStrategy.calculateColor(d, lights, intersection, closestObject);
+                        float r = (float) color.getTrip().getX();
+                        float g = (float) color.getTrip().getY();
+                        float b = (float) color.getTrip().getZ();
+                        Color color1 = new Color(r, g, b);
+                        image.setRGB(i, j, color1.getRGB());
+                    } else {
+                        if (closestObject instanceof Sphere) {
+                            if (shadowStrategy.isShadowed(intersection, lights, sceneObjects)) {
+                                Color color1 = new Color(0, 1, 1); // Point in shadow
+                                image.setRGB(i, j, color1.getRGB());
+                            } else {
+                                Point p = d.multiplicationScailary(closestT).add(lookFrom);
+                                Vector n = (p.subtraction(((Sphere) closestObject).getOrigin())).normalize();
+                                Color color = LambertMethodStrategy.calculateColor(n, lights, intersection, closestObject);
+                                image.setRGB(i, j, color.getRGB());
+                            }
+                        }
+                    }
+                } else {
+                    image.setRGB(i, j, 0); // No intersection
+                }
+            }
+        }
 
-				Point intersection;
-				if (sceneObjects != null) {
-					for (int element = 0; element < sceneObjects.size(); element++) {
-						ISceneObject s = sceneObjects.get(element);
-						t = s.intersect(lookFrom, d);
-						if (t != -1) {
-							intersection = d.add(lookFrom).multiplicationScailary(t);
-						
-							ISceneObject object = sceneObjects.get(element);
-							if (lights.isEmpty()) {
-								Color color = BasicStrategy.calculateColor(d, lights, intersection, s);
-								
-								image.setRGB(i, j, color.getRGB());
-							} else {
-								if (sceneObjects instanceof Sphere) {
-									System.out.println("oui");
-									if (shadowStrategy instanceof ShadowStrategy && shadowStrategy.isShadowed(intersection, lights, sceneObjects)) {
-										System.out.println("non");
-										Color color = new Color(1,1,1);
-										
-										image.setRGB(i, j, color.getRGB());
-									} else {
-										Point p = d.multiplicationScailary(t).add(s.getOrigin());
-										Vector n = (intersection.subtraction(s.getOrigin())).normalize();
-										Color color = LambertMethodStrategy.calculateColor(n, lights, intersection, s);
-										System.out.println(color);
-										image.setRGB(i, j, color.getRGB());
-									}
-									
-								}
-				
-							}
-
-						}
-						}
-					}else {
-							image.setRGB(i, j, 0);
-
-				}
-			}
-		}
-
-		try {
-			File outputImage = new File(name);
-			ImageIO.write(image, "png", outputImage);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return image;
-
-	}
+        try {
+            File outputImage = new File(name);
+            ImageIO.write(image, "png", outputImage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
 
 
 }
