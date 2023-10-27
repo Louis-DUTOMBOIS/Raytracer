@@ -3,6 +3,9 @@ package fr.univartois.butinfo.sae301;
 /**
  * The base class for representing different types of lights in a 3D scene.
  * This class serves as a common superclass for both directional and point lights.
+ * 
+ * @author Theo, Louis, Hugo, Alex
+ * 
  */
 public abstract class Light {
     /**
