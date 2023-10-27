@@ -21,6 +21,7 @@ public class SceneBuilder {
     private int imageHeight;
     private String outputFileName;
     private Camera camera;
+    private boolean shadow;
     private List<Light> lights = new ArrayList<Light>();
     private List<ISceneObject> sceneObjects = new ArrayList<ISceneObject>();
 
@@ -160,7 +161,15 @@ public class SceneBuilder {
         return sceneObjects;
     }
 
-    /**
+    public boolean isShadow() {
+		return shadow;
+	}
+
+	public void setShadow(boolean shadow) {
+		this.shadow = shadow;
+	}
+
+	/**
      * Builds and returns a Scene object with the specified properties.
      *
      * @return A Scene object constructed with the settings provided to the builder.

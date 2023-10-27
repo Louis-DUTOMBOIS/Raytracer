@@ -37,6 +37,7 @@ public class Parser {
 	private List<Triangle> triangles = new ArrayList<>();
 	private List<Sphere> spheres = new ArrayList<>();
 	private List<Plane> planes = new ArrayList<>();
+	private boolean shadow = false;
 
 	/**
      * The width of the 3D scene.
@@ -273,6 +274,10 @@ public class Parser {
 									Double.parseDouble(parts[3])),
 							diffuseColors));
 					break;
+				case "shadow":
+					if (parts[1].equals("true")) {
+						this.shadow=true;
+					}
 				default:
 					break;
 				}
@@ -295,6 +300,7 @@ public class Parser {
 		sceneBuild.setImageWidth(width);
 		sceneBuild.setOutputFileName(pictureFileName);
 		sceneBuild.setCamera(camera);
+		sceneBuild.setShadow(shadow);
 		for (int i = 0; i < lights.size(); i++) {
 			sceneBuild.addLight(lights.get(i));
 		}
