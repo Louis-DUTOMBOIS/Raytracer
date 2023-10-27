@@ -5,13 +5,13 @@ import java.util.List;
 
 public class BasicStrategy implements IColorStrategy{
 
-	public static Color calculateColor(Vector normal, List<Light> light, Point intersectionPoint, ISceneObject object) {
+	public static fr.univartois.butinfo.sae301.Color calculateColor(Vector normal, List<Light> light, Point intersectionPoint, ISceneObject object) {
 		
-			float r = (float) (object.getColor().getTrip().getX());
-			float g = (float) (object.getColor().getTrip().getY());
-			float b = (float) (object.getColor().getTrip().getZ());
+			double r = object.getColor().getTrip().getX();
+			double g = object.getColor().getTrip().getY();
+			double b = object.getColor().getTrip().getZ();
 
-			Color color = new Color(r, g, b);
+			fr.univartois.butinfo.sae301.Color color = new fr.univartois.butinfo.sae301.Color(r, g, b);
 			return color;
 	}
 }

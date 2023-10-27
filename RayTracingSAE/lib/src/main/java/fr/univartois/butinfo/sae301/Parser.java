@@ -12,7 +12,7 @@ public class Parser {
 	private int height = 0;
 	private int maxverts = 0;
 	private String pictureFileName = "output.png";
-	private Camera camera= null;
+	private Camera camera = null;
 	private Color ambientColors = new Color(0, 0, 0);
 	private Color diffuseColors = null;
 	private Color specularColors = null;
@@ -106,9 +106,9 @@ public class Parser {
 				case "camera":
 					camera = new Camera(
 							new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-									Double.parseDouble(parts[3]),ambientColors),
+									Double.parseDouble(parts[3]), ambientColors),
 							new Point(Double.parseDouble(parts[4]), Double.parseDouble(parts[5]),
-									Double.parseDouble(parts[6]),ambientColors),
+									Double.parseDouble(parts[6]), ambientColors),
 							new Vector(Double.parseDouble(parts[7]), Double.parseDouble(parts[8]),
 									Double.parseDouble(parts[9])),
 							Integer.parseInt(parts[10]));
@@ -121,6 +121,17 @@ public class Parser {
 				case "diffuse":
 					diffuseColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
 							Double.parseDouble(parts[3]));
+					if (ambientColors.getTrip().getX() + diffuseColors.getTrip().getX() <= 1) {
+						if (ambientColors.getTrip().getY() + diffuseColors.getTrip().getY() <= 1) {
+							if (ambientColors.getTrip().getZ() + diffuseColors.getTrip().getZ() <= 1) {
+								break;
+							} else
+								System.err.println("entrée incorrecte ");
+						} else
+							System.err.println("entrée incorrecte ");
+					} else
+						System.err.println("entrée incorrecte ");
+
 					break;
 				case "specular":
 					specularColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
@@ -148,7 +159,7 @@ public class Parser {
 					break;
 				case "vertex":
 					points.add(new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-							Double.parseDouble(parts[3]),ambientColors));
+							Double.parseDouble(parts[3]), ambientColors));
 					break;
 				case "tri":
 					if (parts.length >= 4) {
@@ -163,13 +174,15 @@ public class Parser {
 					}
 					break;
 				case "sphere":
-					spheres.add(new Sphere(new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-							Double.parseDouble(parts[3]),ambientColors), diffuseColors, Double.parseDouble(parts[4])));
+					spheres.add(new Sphere(
+							new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
+									Double.parseDouble(parts[3]), ambientColors),
+							diffuseColors, Double.parseDouble(parts[4])));
 					break;
 				case "plane":
 					planes.add(new Plane(
 							new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-									Double.parseDouble(parts[3]),ambientColors),
+									Double.parseDouble(parts[3]), ambientColors),
 							new Vector(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
 									Double.parseDouble(parts[3])),
 							diffuseColors));

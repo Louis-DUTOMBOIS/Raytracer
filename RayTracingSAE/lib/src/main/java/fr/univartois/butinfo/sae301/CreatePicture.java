@@ -83,18 +83,22 @@ public class CreatePicture {
 						t = s.intersect(lookFrom, d);
 						if (t != -1) {
 							intersection = d.add(lookFrom).multiplicationScailary(t);
-						
-							ISceneObject object = sceneObjects.get(element);
 							if (lights.isEmpty()) {
-								Color color = BasicStrategy.calculateColor(d, lights, intersection, s);
-								image.setRGB(i, j, color.getRGB());
+								fr.univartois.butinfo.sae301.Color color = BasicStrategy.calculateColor(d, lights, intersection, s);
+								
+								float r = (float) color.getTrip().getX();
+								float g = (float) color.getTrip().getY();
+								float b = (float) color.getTrip().getZ();
+
+								Color color1 = new Color(r, g, b);
+								image.setRGB(i, j, color1.getRGB());
 							} else {
-								if (sceneObjects instanceof Sphere) {
-									System.out.println("hey");
-									Point p = d.multiplicationScailary(t).add(s.getOrigin());
-									Vector n = (intersection.subtraction(s.getOrigin())).normalize();
+								if (s instanceof Sphere) {
+									
+									Point p = d.multiplicationScailary(t).add(lookFrom);
+									Vector n = (p.subtraction(s.getOrigin())).normalize();
 									Color color = LambertMethodStrategy.calculateColor(n, lights, intersection, s);
-									System.out.println(color);
+									
 									image.setRGB(i, j, color.getRGB());
 								}
 				
