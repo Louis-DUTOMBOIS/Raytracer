@@ -97,7 +97,7 @@ public class CreatePicture {
 									
 									Point p = d.multiplicationScailary(t).add(lookFrom);
 									Vector n = (p.subtraction(s.getOrigin())).normalize();
-									Color color = LambertMethodStrategy.calculateColor(n, lights, intersection, s);
+									Color color = LambertMethodStrategy.calculateColor(n, lights, p, s);
 									
 									image.setRGB(i, j, color.getRGB());
 								}
