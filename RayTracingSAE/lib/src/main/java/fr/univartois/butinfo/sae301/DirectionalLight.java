@@ -1,9 +1,16 @@
 package fr.univartois.butinfo.sae301;
 
 /**
+ * 
  * Represents a directional light source in a 3D scene.
+ * 
+ * @author Theo, Louis, Hugo, Alex
+ *
  */
 public class DirectionalLight extends Light {
+	
+	private Vector direction;
+	
     /**
      * Constructs a directional light with the specified direction and color.
      *
@@ -11,7 +18,8 @@ public class DirectionalLight extends Light {
      * @param color     The color of the light source.
      */
     public DirectionalLight(Vector direction, Color color) {
-        super(direction, color);
+        super(color);
+        this.direction = direction;
     }
 
     /**
@@ -23,4 +31,10 @@ public class DirectionalLight extends Light {
     public LightType getType() {
         return LightType.DIRECTIONAL;
     }
+
+	public Vector getDirection() {
+		return direction;
+	}
+    
+    
 }

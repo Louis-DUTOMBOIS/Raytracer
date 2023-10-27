@@ -1,9 +1,13 @@
 package fr.univartois.butinfo.sae301;
 
 /**
+ * 
  * Represents a color using three components (RGB) stored as a Triplet.
  * This class provides methods for performing color operations such as addition,
  * scalar multiplication, and Schur product.
+ * 
+ * @author Theo, Louis, Hugo, Alex
+ * 
  */
 public class Color {
 
@@ -61,4 +65,11 @@ public class Color {
         Triplet result = trip.schurProduct(c.getTrip());
         return new Color(result.getX(), result.getY(), result.getZ());
     }
+
+	@Override
+	public String toString() {
+		return "Color [trip=" + trip + "]";
+	}
+    
+    
 }

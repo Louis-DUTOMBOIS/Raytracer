@@ -6,14 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
+/**
+ * The Parser class is responsible for parsing a text-format scene file and
+ * creating a 3D scene based on the extracted information.
+ */
+
 public class Parser {
+	
+	// existing attributes
 
 	private int width = 0;
 	private int height = 0;
 	private int maxverts = 0;
 	private String pictureFileName = "output.png";
 	private Camera camera= null;
-	private Color ambientColors = null;
+	private Color ambientColors = new Color(0, 0, 0);
 	private Color diffuseColors = null;
 	private Color specularColors = null;
 	private int shininessValues = 0;
@@ -25,67 +39,152 @@ public class Parser {
 	private List<Plane> planes = new ArrayList<>();
 	private boolean shadow = false;
 
-	public int getMaxverts() {
-		return maxverts;
-	}
+	/**
+     * The width of the 3D scene.
+     *
+     * @return The width of the scene.
+     */
+    public int getWidth() {
+        return width;
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    /**
+     * The height of the 3D scene.
+     *
+     * @return The height of the scene.
+     */
+    public int getHeight() {
+        return height;
+    }
 
-	public int getHeight() {
-		return height;
-	}
+    /**
+     * The maximum number of vertices in the scene.
+     *
+     * @return The maximum number of vertices.
+     */
+    public int getMaxverts() {
+        return maxverts;
+    }
 
-	public String getPictureFileName() {
-		return pictureFileName;
-	}
+    /**
+     * The filename for the output picture of the scene.
+     *
+     * @return The output picture filename.
+     */
+    public String getPictureFileName() {
+        return pictureFileName;
+    }
 
-	public Camera getCamera() {
-		return camera;
-	}
+    /**
+     * The camera used in the scene.
+     *
+     * @return The camera object.
+     */
+    public Camera getCamera() {
+        return camera;
+    }
 
-	public Color getAmbientColors() {
-		return ambientColors;
-	}
+    /**
+     * The ambient color of the scene.
+     *
+     * @return The ambient color.
+     */
+    public Color getAmbientColors() {
+        return ambientColors = new Color(0, 0, 0);
+    }
 
-	public Color getDiffuseColors() {
-		return diffuseColors;
-	}
+    /**
+     * The diffuse color of the scene.
+     *
+     * @return The diffuse color.
+     */
+    public Color getDiffuseColors() {
+        return diffuseColors;
+    }
 
-	public Color getSpecularColors() {
-		return specularColors;
-	}
+    /**
+     * The specular color of the scene.
+     *
+     * @return The specular color.
+     */
+    public Color getSpecularColors() {
+        return specularColors;
+    }
 
-	public int getShininessValues() {
-		return shininessValues;
-	}
+    /**
+     * The shininess value of the scene.
+     *
+     * @return The shininess value.
+     */
+    public int getShininessValues() {
+        return shininessValues;
+    }
 
-	public List<Light> getLights() {
-		return lights;
-	}
+    /**
+     * The list of lights in the scene.
+     *
+     * @return A list of lights.
+     */
+    public List<Light> getLights() {
+        return lights;
+    }
 
-	public List<PointLight> getPointsLight() {
-		return pointsLight;
-	}
+    /**
+     * The list of point lights in the scene.
+     *
+     * @return A list of point lights.
+     */
+    public List<PointLight> getPointsLight() {
+        return pointsLight;
+    }
 
-	public List<Point> getPoints() {
-		return points;
-	}
+    /**
+     * The list of points in the scene.
+     *
+     * @return A list of points.
+     */
+    public List<Point> getPoints() {
+        return points;
+    }
 
-	public List<Triangle> getTriangles() {
-		return triangles;
-	}
+    /**
+     * The list of triangles in the scene.
+     *
+     * @return A list of triangles.
+     */
+    public List<Triangle> getTriangles() {
+        return triangles;
+    }
 
-	public List<Sphere> getSpheres() {
-		return spheres;
-	}
+    /**
+     * The list of spheres in the scene.
+     *
+     * @return A list of spheres.
+     */
+    public List<Sphere> getSpheres() {
+        return spheres;
+    }
 
-	public List<Plane> getPlanes() {
-		return planes;
-	}
+    /**
+     * The list of planes in the scene.
+     *
+     * @return A list of planes.
+     */
+    public List<Plane> getPlanes() {
+        return planes;
+    }
+	
+	/**
+     * Parses a text-format scene file and constructs a 3D scene based on its content.
+     *
+     * @param text The text-format scene file to be parsed.
+     * @throws FileNotFoundException If the specified file is not found.
+     */
 
 	public void read(File text) throws FileNotFoundException {
+		
+		//(code for reading and parsing the file)
+		
 		Scanner scanner = new Scanner(text);
 
 		while (scanner.hasNextLine()) {
@@ -107,9 +206,9 @@ public class Parser {
 				case "camera":
 					camera = new Camera(
 							new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-									Double.parseDouble(parts[3])),
+									Double.parseDouble(parts[3]),ambientColors),
 							new Point(Double.parseDouble(parts[4]), Double.parseDouble(parts[5]),
-									Double.parseDouble(parts[6])),
+									Double.parseDouble(parts[6]),ambientColors),
 							new Vector(Double.parseDouble(parts[7]), Double.parseDouble(parts[8]),
 									Double.parseDouble(parts[9])),
 							Integer.parseInt(parts[10]));
@@ -117,7 +216,7 @@ public class Parser {
 				case "ambient":
 					ambientColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
 							Double.parseDouble(parts[3]));
-					System.out.println("ambient: "+ambientColors.getTrip().toString());
+					diffuseColors = ambientColors;
 					break;
 				case "diffuse":
 					diffuseColors = new Color(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
@@ -138,9 +237,9 @@ public class Parser {
 									Double.parseDouble(parts[6]))));
 					break;
 				case "point":
-					pointsLight.add(new PointLight(
-							new Vector(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-									Double.parseDouble(parts[3])),
+					lights.add(new PointLight(
+							new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
+									Double.parseDouble(parts[3]), ambientColors),
 							new Color(Double.parseDouble(parts[4]), Double.parseDouble(parts[5]),
 									Double.parseDouble(parts[6]))));
 					break;
@@ -149,7 +248,7 @@ public class Parser {
 					break;
 				case "vertex":
 					points.add(new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-							Double.parseDouble(parts[3])));
+							Double.parseDouble(parts[3]),ambientColors));
 					break;
 				case "tri":
 					if (parts.length >= 4) {
@@ -158,23 +257,22 @@ public class Parser {
 						int values3 = Integer.parseInt(parts[3]);
 						if (values1 >= 0 && values1 < points.size() && values2 >= 0 && values2 < points.size()
 								&& values3 >= 0 && values3 < points.size()) {
-							triangles.add(new Triangle(ambientColors, points.get(values1), points.get(values2),
+							triangles.add(new Triangle(diffuseColors, points.get(values1), points.get(values2),
 									points.get(values3)));
 						}
 					}
 					break;
 				case "sphere":
 					spheres.add(new Sphere(new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-							Double.parseDouble(parts[3])), ambientColors, Double.parseDouble(parts[4])));
-					System.out.println("sphere: "+spheres.get(spheres.size()-1).toString()+" ambient: "+ambientColors.getTrip().toString());
+							Double.parseDouble(parts[3]),ambientColors), diffuseColors, Double.parseDouble(parts[4])));
 					break;
 				case "plane":
 					planes.add(new Plane(
 							new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
-									Double.parseDouble(parts[3])),
+									Double.parseDouble(parts[3]),ambientColors),
 							new Vector(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]),
 									Double.parseDouble(parts[3])),
-							ambientColors));
+							diffuseColors));
 					break;
 				case "shadow":
 					if (parts[1].equals("true")) {
@@ -187,7 +285,16 @@ public class Parser {
 		}
 	}
 
+	/**
+     * Constructs an instance of the Scene class using the information extracted from the scene file.
+     *
+     * @return An instance of the Scene class representing the 3D scene.
+     */
+	
 	public Scene constructScene() {
+		
+		//(code for building the scene)
+		
 		SceneBuilder sceneBuild = SceneBuilder.newInstance();
 		sceneBuild.setImageHeight(height);
 		sceneBuild.setImageWidth(width);
@@ -196,9 +303,6 @@ public class Parser {
 		sceneBuild.setShadow(shadow);
 		for (int i = 0; i < lights.size(); i++) {
 			sceneBuild.addLight(lights.get(i));
-		}
-		for (int i = 0; i < lights.size(); i++) {
-			sceneBuild.addLight(pointsLight.get(i));
 		}
 		for (int i = 0; i < planes.size(); i++) {
 			sceneBuild.addSceneObject(planes.get(i));

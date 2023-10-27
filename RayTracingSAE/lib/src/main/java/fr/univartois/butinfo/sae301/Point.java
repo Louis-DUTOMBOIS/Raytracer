@@ -1,10 +1,20 @@
 package fr.univartois.butinfo.sae301;
 
 /**
+ * 
+ * @author hugo, louis, théo, alex
+ *
+ */
+
+/**
  * Represents a point in three-dimensional space, defined by its coordinates (x, y, z).
  */
 public class Point {
+	
+	//existing attributes
+	
     private Triplet trip;
+    private Color color;
 
     /**
      * Constructs a Point object with the specified coordinates (x, y, z).
@@ -13,8 +23,9 @@ public class Point {
      * @param y The y-coordinate of the point.
      * @param z The z-coordinate of the point.
      */
-    public Point(double x, double y, double z) {
+    public Point(double x, double y, double z , Color color) {
         this.trip = new Triplet(x, y, z);
+        this.color = color;
     }
 
     /**
@@ -45,7 +56,7 @@ public class Point {
      */
     public Point multiplicationScailary(double d) {
         Triplet result = trip.multiplicationScailary(d);
-        return new Point(result.getX(), result.getY(), result.getZ());
+        return new Point(result.getX(), result.getY(), result.getZ(), color);
     }
 
     /**
@@ -56,6 +67,17 @@ public class Point {
      */
     public Point subtractionVec(Vector t) {
         Triplet result = trip.subtraction(t.getTrip());
-        return new Point(result.getX(), result.getY(), result.getZ());
+        return new Point(result.getX(), result.getY(), result.getZ(), color);
     }
+
+    /**
+     * Returns the color of the object.
+     *
+     * @return The color of the object.
+     */
+    public Color getColor() {
+        return color;
+    }
+    
+    
 }

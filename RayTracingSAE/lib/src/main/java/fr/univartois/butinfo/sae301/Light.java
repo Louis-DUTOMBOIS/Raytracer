@@ -3,6 +3,9 @@ package fr.univartois.butinfo.sae301;
 /**
  * The base class for representing different types of lights in a 3D scene.
  * This class serves as a common superclass for both directional and point lights.
+ * 
+ * @author Theo, Louis, Hugo, Alex
+ * 
  */
 public abstract class Light {
     /**
@@ -15,14 +18,18 @@ public abstract class Light {
      */
     protected Color color;
 
-    /**
+
+    public Color getColor() {
+		return color;
+	}
+
+	/**
      * Creates a new light with the given direction and color.
      *
      * @param direction The direction or position of the light.
      * @param color The color of the light.
      */
-    public Light(Vector direction, Color color) {
-        this.direction = direction;
+    public Light(Color color) {
         this.color = color;
     }
 
@@ -37,7 +44,4 @@ public abstract class Light {
     	return this.color;
     }
     
-    public Vector direction() {
-    	return this.direction;
-    }
 }
