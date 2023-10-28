@@ -1,92 +1,413 @@
-# SAE_S3.A.01
+@startuml
 
+package fr.univartois.butinfo.sae301.shadow{
+class NoShadowStrategy {
+  +isShadowed(Point, List<Light>, List<ISceneObject>): boolean
+}
+}
 
+package fr.univartois.butinfo.sae301.createscene{
+class Parser {
+    - width: int
+    - height: int
+    - maxverts: int
+    - pictureFileName: String
+    - camera: Camera
+    - ambientColors: Color
+    - diffuseColors: Color
+    - specularColors: Color
+    - shininessValues: int
+    - lights: List<Light>
+    - pointsLight: List<PointLight>
+    - points: List<Point>
+    - triangles: List<Triangle>
+    - spheres: List<Sphere>
+    - planes: List<Plane>
+    - shadow: IShadowStrategy
+    + getWidth(): int
+    + getHeight(): int
+    + getMaxverts(): int
+    + getPictureFileName(): String
+    + getCamera(): Camera
+    + getAmbientColors(): Color
+    + getDiffuseColors(): Color
+    + getSpecularColors(): Color
+    + getShininessValues(): int
+    + getLights(): List<Light>
+    + getPointsLight(): List<PointLight>
+    + getPoints(): List<Point>
+    + getTriangles(): List<Triangle>
+    + getSpheres(): List<Sphere>
+    + getPlanes(): List<Plane>
+    + read(File): void
+    + constructScene(): Scene
+}
+}
 
-## Getting started
+package fr.univartois.butinfo.sae301.objects{
+class Plane {
+    - pos: Point
+    - normal: Vector
+    - color: Color
+    + Plane(Point, Vector, Color)
+    + getOrigin(): Point
+    + getPos(): Point
+    + setPos(Point): void
+    + getNormal(): Vector
+    + setNormal(Vector): void
+    + intersect(Point, Vector): double
+    + getColor(): Color
+}
+}
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+package fr.univartois.butinfo.sae301.opetriplet{
+class Point {
+    - trip: Triplet
+    - color: Color
+    + Point(double, double, double, Color)
+    + getTrip(): Triplet
+    + subtraction(Point): Vector
+    + multiplicationScailary(double): Point
+    + subtractionVec(Vector): Point
+    + getColor(): Color
+}
+}
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+package fr.univartois.butinfo.sae301.lights{
+class PointLight {
+    - position: Point
+    + PointLight(Point, Color)
+    + getType(): LightType
+    + getPosition(): Point
+}
+}
 
-## Add your files
+package fr.univartois.butinfo.sae301.createscene{
+class Scene {
+    - imageWidth: int
+    - imageHeight: int
+    - outputFileName: String
+    - camera: Camera
+    - shadow: IShadowStrategy
+    - lights: List<Light>
+    - sceneObjects: List<ISceneObject>
+    + Scene(SceneBuilder)
+    + Scene(int, int, String, Camera, List<Light>, List<ISceneObject>)
+    + Scene(int, int)
+    + Scene()
+    + getImageWidth(): int
+    + setImageWidth(int): void
+    + getImageHeight(): int
+    + setImageHeight(int): void
+    + getOutputFileName(): String
+    + setOutputFileName(String): void
+    + getCamera(): Camera
+    + setCamera(Camera): void
+    + getLights(): List<Light>
+    + setLights(List<Light>): void
+    + getSceneObjects(): List<ISceneObject>
+    + setSceneObjects(List<ISceneObject>): void
+    + addLight(Light): void
+    + addSceneObject(ISceneObject): void
+    + toString(): String
+    + getShadow(): IShadowStrategy
+    + setShadow(IShadowStrategy): void
+}
+}
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+package fr.univartois.butinfo.sae301.createscene{
+class SceneBuilder {
+    - imageWidth: int
+    - imageHeight: int
+    - outputFileName: String
+    - camera: Camera
+    - shadow: IShadowStrategy
+    - lights: List<Light>
+    - sceneObjects: List<ISceneObject>
+    + newInstance(): SceneBuilder
+    + setImageWidth(int): SceneBuilder
+    + setImageHeight(int): SceneBuilder
+    + setOutputFileName(String): SceneBuilder
+    + setCamera(Camera): SceneBuilder
+    + addLight(Light): SceneBuilder
+    + addSceneObject(ISceneObject): SceneBuilder
+    + getImageWidth(): int
+    + getImageHeight(): int
+    + getOutputFileName(): String
+    + getCamera(): Camera
+    + getLights(): List<Light>
+    + getSceneObjects(): List<ISceneObject>
+    + getShadow(): IShadowStrategy
+    + setShadow(IShadowStrategy): void
+    + build(): Scene
+}
+}
 
-```
-cd existing_repo
-git remote add origin https://gitlab.univ-artois.fr/msi_project/sae_s3.a.01.git
-git branch -M main
-git push -uf origin main
-```
+package fr.univartois.butinfo.sae301.shadow{
+class ShadowStrategy {
+    + isShadowed(Point, List<Light>, List<ISceneObject>): boolean
+}
+}
 
-## Integrate with your tools
+package fr.univartois.butinfo.sae301.objects{
+class Sphere {
+    - pos: Point
+    - radius: double
+    - color: Color
+    + Sphere(Point, Color, double)
+    + getOrigin(): Point
+    + getPos(): Point
+    + setPos(Point): void
+    + getRadius(): double
+    + setRadius(double): void
+    + getColor(): Color
+    + setColor(Color): void
+    + intersect(Point, Vector): double
+    + toString(): String
+}
+}
 
-- [ ] [Set up project integrations](https://gitlab.univ-artois.fr/msi_project/sae_s3.a.01/-/settings/integrations)
+package fr.univartois.butinfo.sae301.objects{
+class Triangle {
+    - point1: Point
+    - point2: Point
+    - point3: Point
+    - color: Color
+    + Triangle(Color, Point, Point, Point)
+    + getOrigin(): Point
+    + getPoint1(): Point
+    + setPoint1(Point): void
+    + getPoint2(): Point
+    + setPoint2(Point): void
+    + getPoint3(): Point
+    + setPoint3(Point): void
+    + getColor(): Color
+    + setColor(Color): void
+    + intersect(Point, Vector): double
+}
+}
 
-## Collaborate with your team
+package fr.univartois.butinfo.sae301.opetriplet{
+class Vector {
+    - trip: Triplet
+    + Vector(double, double, double)
+    + getTrip(): Triplet
+    + add(Vector): Vector
+    + add(Point): Point
+    + subtraction(Vector): Vector
+    + multiplicationScailary(double): Vector
+    + scalarProduct(Vector): double
+    + vectorProduct(Triplet): Vector
+    + length(): double
+    + normalize(): Vector
+}
+}
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+package fr.univartois.butinfo.sae301.opetriplet{
+class Triplet{
+ - double x
+ - double y
+ - double z
+ + Triplet(double x, double y, double z)
+ + getX() : double
+ + getY() : double
+ + getZ() : double
+ + add(Triplet t): Triplet
+ + subtraction(Triplet t): Triplet
+ + multiplicationScalary(double d) : Triplet
+ + scalarProduct(Triplet t): double
+ + vectorProduct(Triplet t): Triplet
+ + shurProduct(Triplet t): Triplet
+ + length(): double
+ + normalize(): Triplet
+ + toString() : String
+}
+}
 
-## Test and Deploy
+package fr.univartois.butinfo.sae301.opetriplet{
+class Color {
+  - red: double
+  - green: double
+  - blue: double
+  - alpha: double
+  + Color(red: double, green: double, blue: double, alpha: double)
+  + getRed(): double
+  + getGreen(): double
+  + getBlue(): double
+  + getAlpha(): double
+  + setRed(red: double)
+  + setGreen(green: double)
+  + setBlue(blue: double)
+  + setAlpha(alpha: double)
+  + toString(): String
+}
+}
 
-Use the built-in continuous integration in GitLab.
+package fr.univartois.butinfo.sae301.creationpicture{
+class BasicStrategy {
+  - BasicStrategy()
+  + calculateColor(normal: Vector, light: List<Light>, intersectionPoint: Point, object: ISceneObject): Color
+}
+}
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+package fr.univartois.butinfo.sae301.createscene{
+class Camera {
+  - lookFrom: Point
+  - lookAt: Point
+  - up: Vector
+  - fov: int
+  + Camera(lookFrom: Point, lookAt: Point, up: Vector, fov: int)
+  + getLookFrom(): Point
+  + setLookFrom(lookFrom: Point): void
+  + getLookAt(): Point
+  + setLookAt(lookAt: Point): void
+  + getUp(): Vector
+  + setUp(up: Vector): void
+  + getFov(): int
+  + setFov(fov: int): void
+}
+}
 
-***
+package fr.univartois.butinfo.sae301.lights{
+class DirectionalLight {
+  - direction: Vector
+  + DirectionalLight(direction: Vector, color: Color)
+  + getType(): LightType
+  + getDirection(): Vector
+}
+}
 
-# Editing this README
+package fr.univartois.butinfo.sae301.creationpicture{
+interface IColorStrategy {
+  + calculateColor(normal: Vector, light: List<Light>, intersectionPoint: Point, object: ISceneObject): java.awt.Color
+}
+}
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+package fr.univartois.butinfo.sae301.objects{
+interface ISceneObject {
+  + getOrigin(): Point
+  + intersect(p: Point, d: Vector): double
+  + getColor(): Color
+}
+}
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+package fr.univartois.butinfo.sae301.shadow{
+interface IShadowStrategy {
+  + isShadowed(intersection: Point, lights: List<Light>, sceneObjects: List<ISceneObject>): boolean
+}
+}
 
-## Name
-Choose a self-explaining name for your project.
+package fr.univartois.butinfo.sae301.creationpicture{
+class LambertMethodStrategy {
+  +CalculateLd(normal: Vector, lights: List<Light>, intersectionPoint: Point): Color
+  +calculateColor(normal: Vector, lights: List<Light>, intersectionPoint: Point, object: ISceneObject): Color
+}
+}
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+package fr.univartois.butinfo.sae301.lights{
+abstract class Light {
+  - direction: Vector
+  - color: Color
+  + getColor() : Color
+  + Light(color: Color)
+  + abstract getType() : LightType
+  + getColorFromLight() : Color
+}
+}
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+package fr.univartois.butinfo.sae301.lights{
+enum LightType {
+  DIRECTIONAL
+  POINT
+}
+}
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+package fr.univartois.butinfo.sae301.main{
+class Main {
+  + main(args: String[]): void
+}
+}
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+package fr.univartois.butinfo.sae301.creationpicture{
+class CreatePicture {
+  - imgWidth: int
+  - imgHeight: int
+  - lookAt: Point
+  - lookFrom: Point
+  - fov: double
+  - up: Vector
+  - sceneObjects: List<ISceneObject>
+  - name: String
+  - lights: List<Light>
+  - shadowStrategy: IShadowStrategy
+  - fovr: double
+  - realHeight: double
+  - pixelHeight: double
+  - realWidth: double
+  - pixelWidth: double
+  + CreatePicture(scene: Scene)
+  + littleA(i: int): double
+  + littleB(j: int): double
+  + calcul(i: int, j: int, up: Vector): Vector
+  + getMyImage(): BufferedImage
+}
+}
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+IColorStrategy <|.. BasicStrategy
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Color --> Triplet: trip
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+CreatePicture --> Point: lookAt
+CreatePicture --> Point: lookFrom
+CreatePicture --> Vector: up
+CreatePicture --> ISceneObject: sceneObjects
+CreatePicture --> Light: lights
+CreatePicture --> IShadowStrategy: shadowStrategy
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+DirectionalLight --|> Light: extends
+DirectionalLight --> Vector: direction
+DirectionalLight --> Color: color
+Light --> Vector: direction
+Light --> Color: color
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+IColorStrategy ..> Vector: normal
+IColorStrategy ..> Point: intersectionPoint
+IColorStrategy ..> ISceneObject: object
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+DirectionalLight --|> Light: extends
+PointLight --|> Light: extends
+java.awt.Color --|> Color: extends
+Color --|> Color: extends
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Light --> Vector: direction
+Light --> Color: color
+LightType --|> Enum: extends
 
-## License
-For open source projects, say how it is licensed.
+DirectionalLight --|> Light: extends
+PointLight --|> Light: extends
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Main --> Parser: creates
+Main --> CreatePicture: creates
+
+Parser --> File: reads
+
+NoShadowStrategy --|> IShadowStrategy
+
+Parser --|> Camera
+Parser --> Scene: Creates
+
+Plane --|> ISceneObject: Implements
+
+SceneBuilder --|> Scene: Builds
+SceneBuilder --|> Scene: Builds
+
+ShadowStrategy --|> IShadowStrategy
+DirectionalLight --|> Light: Extends
+PointLight --|> Light: Extends
+
+Sphere --|> ISceneObject
+
+Triangle --|> ISceneObject
+
+PointLight --> Point : position
+@enduml
