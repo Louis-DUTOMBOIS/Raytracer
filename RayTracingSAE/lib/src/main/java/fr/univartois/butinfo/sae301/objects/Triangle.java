@@ -1,4 +1,8 @@
-package fr.univartois.butinfo.sae301;
+package fr.univartois.butinfo.sae301.objects;
+
+import fr.univartois.butinfo.sae301.opetriplet.Color;
+import fr.univartois.butinfo.sae301.opetriplet.Point;
+import fr.univartois.butinfo.sae301.opetriplet.Vector;
 
 /**
  * 

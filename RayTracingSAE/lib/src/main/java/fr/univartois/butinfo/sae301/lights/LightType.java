@@ -1,4 +1,4 @@
-package fr.univartois.butinfo.sae301;
+package fr.univartois.butinfo.sae301.lights;
 
 /**
  * The `LightType` enum defines two types of light sources that can be used in a 3D scene.

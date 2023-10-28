@@ -1,4 +1,4 @@
-package fr.univartois.butinfo.sae301;
+package fr.univartois.butinfo.sae301.creationpicture;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,6 +7,14 @@ import java.util.List;
 import java.awt.Color;
 
 import javax.imageio.ImageIO;
+
+import fr.univartois.butinfo.sae301.createscene.Scene;
+import fr.univartois.butinfo.sae301.lights.Light;
+import fr.univartois.butinfo.sae301.objects.ISceneObject;
+import fr.univartois.butinfo.sae301.objects.Sphere;
+import fr.univartois.butinfo.sae301.opetriplet.Point;
+import fr.univartois.butinfo.sae301.opetriplet.Vector;
+import fr.univartois.butinfo.sae301.shadow.IShadowStrategy;
 
 public class CreatePicture {
     private int imgWidth;
@@ -92,7 +100,7 @@ public class CreatePicture {
 
                 if (closestObject != null) {
                     if (lights.isEmpty()) {
-                        fr.univartois.butinfo.sae301.Color color = BasicStrategy.calculateColor(d, lights, intersection, closestObject);
+                        fr.univartois.butinfo.sae301.opetriplet.Color color = BasicStrategy.calculateColor(d, lights, intersection, closestObject);
                         float r = (float) color.getTrip().getX();
                         float g = (float) color.getTrip().getY();
                         float b = (float) color.getTrip().getZ();
@@ -101,7 +109,8 @@ public class CreatePicture {
                     } else {
                         if (closestObject instanceof Sphere) {
                             if (shadowStrategy.isShadowed(intersection, lights, sceneObjects)) {
-                                Color color1 = new Color(0, 1, 1); // Point in shadow
+                            	System.out.println("hey");
+                                Color color1 = new Color(1, 0, 0); // Point in shadow
                                 image.setRGB(i, j, color1.getRGB());
                             } else {
                                 Point p = d.multiplicationScailary(closestT).add(lookFrom);
@@ -109,6 +118,14 @@ public class CreatePicture {
                                 Color color = LambertMethodStrategy.calculateColor(n, lights, p, closestObject);
                                 image.setRGB(i, j, color.getRGB());
                             }
+                        }
+                        else {
+                        	 fr.univartois.butinfo.sae301.opetriplet.Color color = BasicStrategy.calculateColor(d, lights, intersection, closestObject);
+                             float r = (float) color.getTrip().getX();
+                             float g = (float) color.getTrip().getY();
+                             float b = (float) color.getTrip().getZ();
+                             Color color1 = new Color(r, g, b);
+                             image.setRGB(i, j, color1.getRGB());
                         }
                     }
                 } else {

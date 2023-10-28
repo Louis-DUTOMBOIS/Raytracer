@@ -1,4 +1,7 @@
-package fr.univartois.butinfo.sae301;
+package fr.univartois.butinfo.sae301.lights;
+
+import fr.univartois.butinfo.sae301.opetriplet.Color;
+import fr.univartois.butinfo.sae301.opetriplet.Point;
 
 /**
  * 
