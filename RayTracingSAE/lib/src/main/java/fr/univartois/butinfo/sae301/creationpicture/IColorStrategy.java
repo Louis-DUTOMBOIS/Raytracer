@@ -1,6 +1,11 @@
-package fr.univartois.butinfo.sae301;
+package fr.univartois.butinfo.sae301.creationpicture;
 
 import java.util.List;
+
+import fr.univartois.butinfo.sae301.lights.Light;
+import fr.univartois.butinfo.sae301.objects.ISceneObject;
+import fr.univartois.butinfo.sae301.opetriplet.Point;
+import fr.univartois.butinfo.sae301.opetriplet.Vector;
 
 /**
  * The IColorStrategy interface defines a strategy for calculating the color of a scene object.

@@ -1,4 +1,7 @@
-package fr.univartois.butinfo.sae301;
+package fr.univartois.butinfo.sae301.createscene;
+
+import fr.univartois.butinfo.sae301.opetriplet.Point;
+import fr.univartois.butinfo.sae301.opetriplet.Vector;
 
 /**
  * 

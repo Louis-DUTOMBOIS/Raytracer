@@ -1,7 +1,11 @@
-package fr.univartois.butinfo.sae301;
+package fr.univartois.butinfo.sae301.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+
+import fr.univartois.butinfo.sae301.createscene.Parser;
+import fr.univartois.butinfo.sae301.createscene.Scene;
+import fr.univartois.butinfo.sae301.creationpicture.CreatePicture;
 
 /**
  * The `Main` class is the entry point for the application that reads a scene description file, constructs a 3D scene,

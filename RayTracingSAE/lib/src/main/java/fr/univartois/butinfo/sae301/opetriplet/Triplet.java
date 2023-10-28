@@ -1,4 +1,4 @@
-package fr.univartois.butinfo.sae301;
+package fr.univartois.butinfo.sae301.opetriplet;
 
 /**
  * 

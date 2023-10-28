@@ -1,10 +1,23 @@
-package fr.univartois.butinfo.sae301;
+package fr.univartois.butinfo.sae301.createscene;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import fr.univartois.butinfo.sae301.lights.DirectionalLight;
+import fr.univartois.butinfo.sae301.lights.Light;
+import fr.univartois.butinfo.sae301.lights.PointLight;
+import fr.univartois.butinfo.sae301.objects.Plane;
+import fr.univartois.butinfo.sae301.objects.Sphere;
+import fr.univartois.butinfo.sae301.objects.Triangle;
+import fr.univartois.butinfo.sae301.opetriplet.Color;
+import fr.univartois.butinfo.sae301.opetriplet.Point;
+import fr.univartois.butinfo.sae301.opetriplet.Vector;
+import fr.univartois.butinfo.sae301.shadow.IShadowStrategy;
+import fr.univartois.butinfo.sae301.shadow.NoShadowStrategy;
+import fr.univartois.butinfo.sae301.shadow.ShadowStrategy;
 
 
 /**
