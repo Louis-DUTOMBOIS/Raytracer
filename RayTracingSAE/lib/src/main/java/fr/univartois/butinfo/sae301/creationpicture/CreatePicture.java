@@ -16,24 +16,95 @@ import fr.univartois.butinfo.sae301.opetriplet.Point;
 import fr.univartois.butinfo.sae301.opetriplet.Vector;
 import fr.univartois.butinfo.sae301.shadow.IShadowStrategy;
 
+/**
+ * This class is responsible for creating and rendering images of 3D scenes.
+ * It calculates the color of each pixel in the image based on the scene's objects, lights, and camera parameters.
+ *
+ * @author Theo, Louis, Hugo, Alex
+ */
 public class CreatePicture {
+    /**
+     * The width of the output image.
+     */
     private int imgWidth;
+
+    /**
+     * The height of the output image.
+     */
     private int imgHeight;
+
+    /**
+     * The point the camera is aimed at.
+     */
     private Point lookAt;
+
+    /**
+     * The position of the camera.
+     */
     private Point lookFrom;
+
+    /**
+     * The field of view angle in degrees.
+     */
     private double fov;
+
+    /**
+     * The up vector indicating the camera's orientation.
+     */
     private Vector up;
+
+    /**
+     * The list of scene objects in the 3D scene.
+     */
     private List<ISceneObject> sceneObjects = new ArrayList<>();
+
+    /**
+     * The name of the output image file.
+     */
     private String name;
+
+    /**
+     * The list of lights in the scene.
+     */
     private List<Light> lights;
+
+    /**
+     * The shadow strategy used for rendering.
+     */
     private IShadowStrategy shadowStrategy;
 
+    /**
+     * The field of view angle in radians.
+     */
     private double fovr;
+
+    /**
+     * The real height of the view plane.
+     */
     private double realHeight;
+
+    /**
+     * The height of each pixel on the view plane.
+     */
     private double pixelHeight;
+
+    /**
+     * The real width of the view plane.
+     */
     private double realWidth;
+
+    /**
+     * The width of each pixel on the view plane.
+     */
     private double pixelWidth;
 
+
+
+    /**
+     * Constructs a CreatePicture object using a given Scene.
+     *
+     * @param scene The Scene object containing the scene's parameters and objects.
+     */
     public CreatePicture(Scene scene) {
         this.imgWidth = scene.getImageWidth();
         this.imgHeight = scene.getImageHeight();
@@ -52,14 +123,34 @@ public class CreatePicture {
         pixelWidth = realWidth / imgWidth;
     }
 
+    /**
+     * Calculates the 'little a' value for a given column index.
+     *
+     * @param i The column index.
+     * @return The 'little a' value.
+     */
     public double littleA(int i) {
         return (-realWidth / 2) + (i + 0.5) * pixelWidth;
     }
 
+    /**
+     * Calculates the 'little b' value for a given row index.
+     *
+     * @param j The row index.
+     * @return The 'little b' value.
+     */
     public double littleB(int j) {
         return (realHeight / 2) - (j + 0.5) * pixelHeight;
     }
 
+    /**
+     * Calculates the direction vector for a given pixel (i, j) and up vector.
+     *
+     * @param i   The column index (i).
+     * @param j   The row index (j).
+     * @param up  The up vector.
+     * @return The direction vector for the pixel (i, j).
+     */
     public Vector calcul(int i, int j, Vector up) {
         Vector w = lookFrom.subtraction(lookAt);
         Vector normW = w.normalize();
@@ -75,6 +166,11 @@ public class CreatePicture {
         return d.normalize();
     }
 
+    /**
+     * Generates the image of the 3D scene based on camera and scene parameters.
+     *
+     * @return A BufferedImage representing the rendered scene.
+     */
     public BufferedImage getMyImage() {
     	int shadow = 0;
     	int noShadow = 0;
